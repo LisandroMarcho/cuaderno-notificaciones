@@ -14,7 +14,7 @@ export default function BotonInicio ({children}) {
             borderColor: 'black',
             borderWidth: 1
         }}>
-        <Text style={{textAlign: 'center'}}>{children}</Text>
+        <Text style={{textAlign: 'center', fontSize: 16}}>{children}</Text>
     </TouchableOpacity>           
     )
 }
