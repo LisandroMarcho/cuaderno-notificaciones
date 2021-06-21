@@ -1,18 +1,14 @@
 * {
-    -webkit-tap-highlight-color: rgba(
-        0,
-        0,
-        0,
-        0
-    ); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+    --nav-height: 55px;
+    --button-color: #59a0df;
+    --button-color-active: #316899;
+    --button-color-hover: #4486be;
+
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
 body {
-    margin: 0;
-    padding: 0;
     width: 100vw;
     min-height: 100vh;
     background-color: white;
@@ -24,22 +20,34 @@ nav, nav section {
 }
 
 nav {
-    padding: 5px 10px;
+    width: 100%;
+    height: var(--nav-height);
+
     justify-content: space-between;
+
+    padding: 10px;
+    box-sizing: border-box;
+
+    box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.25);
 }
 
 nav section {
     border: 2px solid black;
     border-radius: 8px;
+    
     font-weight: bold;
+    
     padding: 0 9px 0 5px;
+    box-sizing: border-box;
 }
 
 nav img {
     width: 32px;
 }
+
 .index {
-    padding-top: 20px;
+    height: calc(100vh - var(--nav-height));
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -47,22 +55,33 @@ nav img {
 
 .index .horarios {
     width: 100%;
+    padding: 15px;
+    box-sizing: border-box;
 }
 
-.botonera {
+.index .botonera {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     gap: 10px;
-    padding: 25px 15px 50px 15px;
+    padding: 0 15px 15px;
+    box-sizing: border-box;
 }
 
 .index .botonera button {
-    height: 80px;
+    padding: 20px 0;
+    font-size: 1.3rem;
+    background-color: var(--button-color);
+    border: 3px solid black;
     border-radius: 8px;
-    background-color: lightskyblue;
-    font-size: 1.5rem;
-    font-weight: 600;
+    cursor: pointer;
+}
+
+.index .botonera button:hover {
+    background: var(--button-color-hover);
+}
+
+.index .botonera button:active {
+    background: var(--button-color-active);
 }
 
 @media screen and (prefers-color-scheme: dark) {
