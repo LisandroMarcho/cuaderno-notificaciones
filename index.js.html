@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Home</title>
+  <title> index.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -73,33 +75,32 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p></p>
-                    <h1>Home</h1>
+                    <p>Source</p>
+                    <h1>index.js</h1>
                 </header>
                 
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// Wait for the deviceready event before using any of Cordova's device APIs.
+// See https://cordova.apache.org/docs/en/latest/cordova/events/events.html#deviceready
+document.addEventListener('deviceready', onDeviceReady, false);
 
+/**
+ * Funcion por defecto de Cordova para cuando se pueden usar las API
+ */
+function onDeviceReady() {
+    // Cordova is now initialized. Have fun!
 
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+    // console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
+    // document.getElementById('deviceready').classList.add('ready'); 
+}
+</code></pre>
+        </article>
+    </section>
 
 
 
