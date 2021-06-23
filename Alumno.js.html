@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Global</title>
+  <title> Alumno.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -73,196 +75,94 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Title</p>
-                    <h1>Global</h1>
+                    <p>Source</p>
+                    <h1>Alumno.js</h1>
                 </header>
                 
 
 
 
-
-<section>
-
-<header>
     
-        <h2></h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-        
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-        
-    
-    </div>
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <div class='vertical-section'>
-            <h1>Methods</h1>
-            <div class="members">
-            
-                <div class="member">
-
-
-    
-    <h4 class="name" id="onDeviceReady">
-        <a class="href-link" href="#onDeviceReady">#</a>
-        
-        <span class="code-name">
-            
-                onDeviceReady<span class="signature">()</span><span class="type-signature"></span>
-            
-        </span>
-    </h4>
-    
-
-    
-    
-    <div class="description">
-        Funcion por defecto de Cordova para cuando se pueden usar las API
-    </div>
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="index.js.html" class="button">View Source</a>
-            <span>
-                <a href="index.js.html">index.js</a>, <a href="index.js.html#line8">line 8</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-            
-            </div>
-        </div>
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>class Alumno {
+  /**
+   * Inicializa una nueva instancia de Alumno, y permite manipular su información. Además, hace 
+   * una copia del usuario de Firebase.
+   *  
+   * @example
+   * const user = new Alumno();
+   */
+  constructor() {
+    this.firebaseUser = fireAuth().currentUser;
+  }
+
+  /**
+   * Registra un usuario con email y contraseña.
+   * TODO: Vincular dni con el usuario
+   * @param {object} credentials            Objeto con las credenciales
+   * @param {String} credentials.email      Correo electronico del usuario
+   * @param {String} credentials.password   Contraseña del usuario
+   * @example
+   * const credenciales = {
+   *  email: 'mail@example.com',
+   *  password: 'example_password'
+   * };
+   * 
+   * const result = await Alumno.registrar(credenciales);
+   * @returns {Object} User or error
+   */
+  static async registrar({ email, password }) {
+    try {
+      const userCredential = await fireAuth().createUserWithEmailAndPassword(email, password);
+      return userCredential.user;
+    } catch (error) {
+      const errorCode = await error.code;
+      return { error: errorCode };
+    }
+  }
+
+  /**
+   * Autentica un usuario con un email y contraseña
+   * @param {Object} credentials            Objeto con las credenciales
+   * @param {String} credentials.email      Correo electronico del usuario
+   * @param {String} credentials.password   Contraseña del usuario
+   * @example
+   * const credenciales = {
+   *  email: 'mail@example.com',
+   *  password: 'example_password'
+   * };
+   * 
+   * const result = await Alumno.iniciarSesion(credenciales);
+   * @returns {Object} User or error
+   */
+  static async iniciarSesion({ email, password }) {
+    try {
+      const userCredential = await fireAuth().signInWithEmailAndPassword(email, password);
+      return userCredential.user;
+    } catch (error) {
+      const errorCode = error.code;
+      return { error:errorCode }
+    }
+  }
+
+  /**
+   * Cierra la sesión del alumno. El cambio de estado de usuario se puede ver 
+   * reflejado en el listener ```fireAuth().onAuthStateChanged((user) => {...})```.
+   * @example
+   * Alumno.cerrarSesion();
+   */
+  static async cerrarSesion() {
+    await fireAuth().signOut();
+  }
+}
+
+// fireAuth().onAuthStateChanged((user)=>{
+//   if(user !== null) console.log(user.uid)
+//   else console.log(null)
+// })</code></pre>
+        </article>
+    </section>
 
 
 
