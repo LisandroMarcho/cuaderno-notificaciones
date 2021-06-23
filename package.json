@@ -7,7 +7,9 @@
     "scripts": {
         "start": "cordova run browser",
         "dev": "live-server www",
-        "docs": "jsdoc www/js -c jsdoc.json -d docs"
+        "docs": "jsdoc www/js -c jsdoc.json",
+        "predocs:serve":"yarn docs",
+        "docs:serve": "live-server out --port=1234 --no-browser"
     },
     "keywords": [
         "ecosystem:cordova"
