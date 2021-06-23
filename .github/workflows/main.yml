@@ -16,11 +16,11 @@ jobs:
         uses: andstor/jsdoc-action@v1
         with:
           source_dir: ./www
-          output_dir: ./docs
-          config_file: jsdoc.json
-          
+          output_dir: ./out
+          template: better-docs
+
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          publish_dir: ./docs
+          publish_dir: ./out
