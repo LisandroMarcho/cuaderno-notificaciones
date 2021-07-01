@@ -52,7 +52,32 @@ main {
     display: flex;
     flex-direction: column;
 }
-
+.aviso .fort {
+    border-radius: 50%;
+    height: 45px; 
+    width: 45px;
+}
+.aviso__header {
+    display: flex;
+    flex-direction: row;
+}
+.aviso__persona {
+    display: flex;
+    flex-direction: column;
+}
+.aviso {
+    padding: 10px;
+    overflow: hidden;
+    background-color: #EAEAEA;
+    border-color: black;
+    border-width: thin;
+    border-style: solid;
+    border-radius: 1.5mm;
+    margin: 1%;
+}
+.avisos {
+    padding: 40px;
+}
 .index {
     justify-content: space-between;
 }
