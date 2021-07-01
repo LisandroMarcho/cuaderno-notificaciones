@@ -9,3 +9,5 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
+
+const fireAuth = firebase.auth;
