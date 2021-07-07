@@ -52,9 +52,8 @@ main {
     display: flex;
     flex-direction: column;
 }
-<<<<<<< HEAD
 
-.container {
+.login .container {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
@@ -70,8 +69,6 @@ main {
     box-sizing: border-box;
     padding: 70px 30px;
 }
-
-
 
 .login-box .avatar {
     width: 125px;
@@ -125,8 +122,6 @@ main {
     color:#e7f1f7;
 }
 
-
-=======
 .aviso .fort {
     border-radius: 50%;
     height: 45px; 
@@ -153,7 +148,6 @@ main {
 .avisos {
     padding: 40px;
 }
->>>>>>> b38c5e9da51729ffc2120535b67f163e0c422140
 .index {
     justify-content: space-between;
 }
