@@ -6,25 +6,44 @@
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
         <link rel="stylesheet" href="css/login.css">
-        <title>login</title>
+        <title>Registro</title>
+        <script>
+function comprobarClave(){
+    clave1 = document.f1.clave1.value
+    clave2 = document.f1.clave2.value
+
+    if (clave1 == clave2)
+       alert("Las dos claves son iguales...\nRealizaríamos las acciones del caso positivo")
+    else
+       alert("Las dos claves son distintas...\nRealizaríamos las acciones del caso negativo")
+}
+</script>
     </head>
 
 <body>
 <div class="container">
     <div class="login-box">
     <img class="avatar" src="img/tec.jpg">
-<form>
-    <label for="numdni">Numero de Dni: </label>            
+<form name="f1">
+    <label for="numdni">Dni del alumno: </label>            
     <input type="number" name="dni" placeholder="Ej:1234567890">
-    <label for="contra">Contraseña: </label>
+    
+    <label for="contraseña">Escribe una contraseña: </label>
     <div class="password">
-        <input type="password" name="contraseña" placeholder="Introduzca su contraseña">
+    <input type="password" name="clave1" placeholder="Introduzca su contraseña">
     </div>
+    
+    <label for="contraseña">Repita la contraseña:</label>
+    <div class="password">
+    <input type="password" name="clave2" placeholder="Repita la contraseña">
+    </div>
+    
     <div class="submit">
     <input type="submit" value="Entrar"></input> <br>
+    
     </div>
     <div class="a">
-        <a href="registro.php" id="a">No tengo cuenta</a>
+        <a href="login.php" id="a">Ya tengo cuenta.</a>
     </div>
 </form>
     </div>
@@ -32,6 +51,6 @@
         <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-database.js"></script>
         <script src="js/config.js"></script>
-        <script src="js/index.js"></script>
+        <script src="js/register.js"></script>
     </body>
 </html>

@@ -37,7 +37,7 @@
     font-family: calibri;
 
 }
-.login-box input[type="number"], .login-box input[type="password"]{
+.login-box input[type="number"], .login-box input[type="password"] {
   font-size: 16px;
   background: #E9E9E9;
   border-color: #E9E9E9;
