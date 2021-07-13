@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
     <head>
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
@@ -12,39 +12,26 @@
         <title>Login</title>
     </head>
 
-    <body>
-        <div class="container">
-            <div class="login-box">
-                <img class="avatar" src="img/tec.jpg" />
-                <form id="form">
-                    <label for="numdni">Numero de Dni: </label>
-                    <input
-                        type="number"
-                        name="dni"
-                        id="dni"
-                        placeholder="Ej:1234567890"
-                    />
-                    <label for="contra">Contraseña: </label>
-                    <div class="password">
-                        <input
-                            type="password"
-                            id="password"
-                            name="contraseña"
-                            placeholder="Introduzca su contraseña"
-                        />
-                    </div>
-                    <div class="submit">
-                        <input
-                            type="submit"
-                            value="Entrar"
-                        /><br />
-                    </div>
-                    <div class="a">
-                        <a href="registro.php" id="a">No tengo cuenta</a>
-                    </div>
-                </form>
-            </div>
-        </div>
+<body>
+<div class="container">
+    <div class="login-box">
+    <img class="avatar" src="img/tec.jpg">
+<form>
+    <label for="numdni">Numero de Dni: </label>            
+    <input type="number" name="dni" placeholder="Ej:1234567890">
+    <label for="contra">Contraseña: </label>
+    <div class="password">
+        <input type="password" name="contraseña" placeholder="Introduzca su contraseña">
+    </div>
+    <div class="submit">
+    <input type="submit" value="Entrar"></input> <br>
+    </div>
+    <div class="a">
+        <a href="registro.html" id="a">No tengo cuenta</a>
+    </div>
+</form>
+    </div>
+</div>
         <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-auth.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-database.js"></script>
