@@ -66,7 +66,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="Alumno.html">Alumno</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="Alumno.html">Alumno</a></li></ul><h3>Global</h3><ul><li><a href="global.html#initializeApp">initializeApp</a></li><li><a href="global.html#isLoggedIn">isLoggedIn</a></li></ul></div>
                 
             </nav>
         </div>
@@ -118,8 +118,7 @@
     
     
     <div class="description">
-        Inicializa una nueva instancia de Alumno, y permite manipular su información. Además, hace
-una copia del usuario de Firebase.
+        Inicializa una nueva instancia de Alumno, y permite manipular su información. Además, haceuna copia del usuario de Firebase.
     </div>
     
 
@@ -168,9 +167,9 @@ una copia del usuario de Firebase.
 
     
         <p class="tag-source">
-            <a href="Alumno.js.html" class="button">View Source</a>
+            <a href="index.js.html" class="button">View Source</a>
             <span>
-                <a href="Alumno.js.html">Alumno.js</a>, <a href="Alumno.js.html#line11">line 11</a>
+                <a href="index.js.html">index.js</a>, <a href="index.js.html#line22">line 22</a>
             </span>
         </p>
     
@@ -252,8 +251,7 @@ una copia del usuario de Firebase.
     
     
     <div class="description">
-        Cierra la sesión del alumno. El cambio de estado de usuario se puede ver
-reflejado en el listener ```fireAuth().onAuthStateChanged((user) => {...})```.
+        Cierra la sesión del alumno.
     </div>
     
 
@@ -302,9 +300,9 @@ reflejado en el listener ```fireAuth().onAuthStateChanged((user) => {...})```.
 
     
         <p class="tag-source">
-            <a href="Alumno.js.html" class="button">View Source</a>
+            <a href="index.js.html" class="button">View Source</a>
             <span>
-                <a href="Alumno.js.html">Alumno.js</a>, <a href="Alumno.js.html#line79">line 79</a>
+                <a href="index.js.html">index.js</a>, <a href="index.js.html#line80">line 80</a>
             </span>
         </p>
     
@@ -512,9 +510,9 @@ reflejado en el listener ```fireAuth().onAuthStateChanged((user) => {...})```.
 
     
         <p class="tag-source">
-            <a href="Alumno.js.html" class="button">View Source</a>
+            <a href="index.js.html" class="button">View Source</a>
             <span>
-                <a href="Alumno.js.html">Alumno.js</a>, <a href="Alumno.js.html#line58">line 58</a>
+                <a href="index.js.html">index.js</a>, <a href="index.js.html#line65">line 65</a>
             </span>
         </p>
     
@@ -568,12 +566,7 @@ reflejado en el listener ```fireAuth().onAuthStateChanged((user) => {...})```.
     <h5>Example</h5>
     
     
-        <pre class="prettyprint"><code>const credenciales = {
- email: 'mail@example.com',
- password: 'example_password'
-};
-
-const result = await Alumno.iniciarSesion(credenciales);</code></pre>
+        <pre class="prettyprint"><code>const credenciales = { email: 'mail@example.com', password: 'example_password'};const result = await Alumno.iniciarSesion(credenciales);</code></pre>
     
 
 
@@ -603,8 +596,7 @@ const result = await Alumno.iniciarSesion(credenciales);</code></pre>
     
     
     <div class="description">
-        Registra un usuario con email y contraseña.
-TODO: Vincular dni con el usuario
+        Registra un usuario con email y contraseña.TODO: Vincular dni con el usuario
     </div>
     
 
@@ -776,9 +768,9 @@ TODO: Vincular dni con el usuario
 
     
         <p class="tag-source">
-            <a href="Alumno.js.html" class="button">View Source</a>
+            <a href="index.js.html" class="button">View Source</a>
             <span>
-                <a href="Alumno.js.html">Alumno.js</a>, <a href="Alumno.js.html#line31">line 31</a>
+                <a href="index.js.html">index.js</a>, <a href="index.js.html#line42">line 42</a>
             </span>
         </p>
     
@@ -832,12 +824,7 @@ TODO: Vincular dni con el usuario
     <h5>Example</h5>
     
     
-        <pre class="prettyprint"><code>const credenciales = {
- email: 'mail@example.com',
- password: 'example_password'
-};
-
-const result = await Alumno.registrar(credenciales);</code></pre>
+        <pre class="prettyprint"><code>const credenciales = { email: 'mail@example.com', password: 'example_password'};const result = await Alumno.registrar(credenciales);</code></pre>
     
 
 
