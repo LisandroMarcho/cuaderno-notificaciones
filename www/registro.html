@@ -8,14 +8,15 @@
         <link rel="stylesheet" href="css/login.css">
         <title>Registro</title>
         <script>
+
 function comprobarClave(){
     clave1 = document.f1.clave1.value
     clave2 = document.f1.clave2.value
 
     if (clave1 == clave2)
-       alert("Las dos claves son iguales...\nRealizaríamos las acciones del caso positivo")
+       alert("Las dos claves son iguales")
     else
-       alert("Las dos claves son distintas...\nRealizaríamos las acciones del caso negativo")
+       alert("Las dos claves son distintas")
 }
 </script>
     </head>
@@ -25,7 +26,8 @@ function comprobarClave(){
     <div class="login-box">
     <img class="avatar" src="img/tec.jpg">
 <form name="f1">
-    <label for="numdni">Dni del alumno: </label>            
+    <br>
+    <label for="numdni">DNI del alumno: </label>            
     <input type="number" name="dni" placeholder="Ej:1234567890">
     
     <label for="contraseña">Escribe una contraseña: </label>
