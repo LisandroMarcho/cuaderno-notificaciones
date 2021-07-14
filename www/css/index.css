@@ -52,21 +52,31 @@ main {
     display: flex;
     flex-direction: column;
 }
+.notas {
+    text-align: center;
+
+}
 .aviso .fort {
     border-radius: 50%;
     height: 45px; 
     width: 45px;
+
 }
+
 .aviso__header {
     display: flex;
     flex-direction: row;
 }
+
 .aviso__persona {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    margin-left: 11px;
 }
-.aviso {
-    padding: 10px;
+
+.aviso, .consulta {
+    padding: 7px;
     overflow: hidden;
     background-color: #EAEAEA;
     border-color: black;
@@ -74,9 +84,10 @@ main {
     border-style: solid;
     border-radius: 1.5mm;
     margin: 1%;
+    margin-bottom: 11px;
 }
 .avisos {
-    padding: 40px;
+    padding: 25px;
 }
 .index {
     justify-content: space-between;
