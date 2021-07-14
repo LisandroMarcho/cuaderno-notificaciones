@@ -5,8 +5,8 @@
     align-content: space-between;
 }
 .login-box {
-    width:320px;
-    height:420px;
+    width:340px;
+    height:450px;
     top: 50%;
     left:50%;
     position: absolute;
@@ -16,8 +16,8 @@
 }
 
 .login-box .avatar {
-    width: 125px;
-    height: 125px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
     position: absolute;
     top: -50px;
@@ -37,7 +37,7 @@
     font-family: calibri;
 
 }
-.login-box input[type="number"], .login-box input[type="password"] {
+.login-box input[type="number"], .login-box input[type="password"], .login-box input[type="email"]{
   font-size: 18px;
   background: #E9E9E9;
   border-color: #E9E9E9;
