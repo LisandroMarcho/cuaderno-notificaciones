@@ -1,9 +1,6 @@
 const alumnosRef = firebase.database().ref("usuarios/alumnos/");
 const avisosRef  = firebase.database().ref("avisos/");
-<<<<<<< HEAD
-const chatRef    = firebase.database().ref("chat/");
-=======
->>>>>>> b1e900510330b0038ba14a996f7d55b166a212e1
+//const chatRef    = firebase.database().ref("chat/");
 
 // Wait for the deviceready event before using any of Cordova's device APIs.
 // See https://cordova.apache.org/docs/en/latest/cordova/events/events.html#deviceready
@@ -47,12 +44,8 @@ class Alumno {
   static registrar({ email, dni, password }) {
     fireAuth().createUserWithEmailAndPassword(email, password)
       .then(async (user) => {
-<<<<<<< HEAD
         await alumnosRef.child(dni).update({ email });
         localStorage.setItem('infoAlumno', JSON.stringify({  }))
-=======
-        await alumnosRef.child(dni).set({ email });
->>>>>>> b1e900510330b0038ba14a996f7d55b166a212e1
         return user;
       })
       .catch((e) => {
@@ -110,11 +103,7 @@ class Aviso {
     this.body = bodyAviso;
   }
 
-<<<<<<< HEAD
   static async crear() {
-=======
-  async crear() {
->>>>>>> b1e900510330b0038ba14a996f7d55b166a212e1
     await avisosRef.child(this.infoCurso.curso)
       .child(this.infoCurso.division)
       .push(this.body);
