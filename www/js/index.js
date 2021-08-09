@@ -1,6 +1,9 @@
 const alumnosRef = firebase.database().ref("usuarios/alumnos/");
 const avisosRef  = firebase.database().ref("avisos/");
+<<<<<<< HEAD
 const chatRef    = firebase.database().ref("chat/");
+=======
+>>>>>>> b1e900510330b0038ba14a996f7d55b166a212e1
 
 // Wait for the deviceready event before using any of Cordova's device APIs.
 // See https://cordova.apache.org/docs/en/latest/cordova/events/events.html#deviceready
@@ -44,8 +47,12 @@ class Alumno {
   static registrar({ email, dni, password }) {
     fireAuth().createUserWithEmailAndPassword(email, password)
       .then(async (user) => {
+<<<<<<< HEAD
         await alumnosRef.child(dni).update({ email });
         localStorage.setItem('infoAlumno', JSON.stringify({  }))
+=======
+        await alumnosRef.child(dni).set({ email });
+>>>>>>> b1e900510330b0038ba14a996f7d55b166a212e1
         return user;
       })
       .catch((e) => {
@@ -103,7 +110,11 @@ class Aviso {
     this.body = bodyAviso;
   }
 
+<<<<<<< HEAD
   static async crear() {
+=======
+  async crear() {
+>>>>>>> b1e900510330b0038ba14a996f7d55b166a212e1
     await avisosRef.child(this.infoCurso.curso)
       .child(this.infoCurso.division)
       .push(this.body);
@@ -168,6 +179,20 @@ function isLoggedIn(user) {
  * Inicializa la applicación
  */
 function initializeApp (){
+  let sidebar = document.querySelector(".sidebar");
+  let closeBtn = document.querySelector("#btn");
+  let searchBtn = document.querySelector(".bx-search");
+
+  closeBtn.addEventListener("click", ()=>{
+    sidebar.classList.toggle("open");
+    menuBtnChange();//calling the function(optional)
+  });
+
+  searchBtn.addEventListener("click", ()=>{ // Sidebar open when you click on the search iocn
+    sidebar.classList.toggle("open");
+    menuBtnChange(); //calling the function(optional)
+  });
+
   firebase.auth().onAuthStateChanged(isLoggedIn);
   
   const initialyDisabledElements = document.querySelectorAll('.init-disabled');
@@ -176,4 +201,13 @@ function initializeApp (){
     element.disabled = false;
   })
 };
+
+// following are the code to change sidebar button(optional)
+function menuBtnChange() {
+  if(sidebar.classList.contains("open")){
+    closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");//replacing the iocns class
+  }else {
+    closeBtn.classList.replace("bx-menu-alt-right","bx-menu");//replacing the iocns class
+  }
+}
 
