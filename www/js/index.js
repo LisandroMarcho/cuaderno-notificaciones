@@ -1,5 +1,6 @@
 const alumnosRef = firebase.database().ref("usuarios/alumnos/");
 const avisosRef  = firebase.database().ref("avisos/");
+//const chatRef    = firebase.database().ref("chat/");
 
 // Wait for the deviceready event before using any of Cordova's device APIs.
 // See https://cordova.apache.org/docs/en/latest/cordova/events/events.html#deviceready
@@ -43,7 +44,8 @@ class Alumno {
   static registrar({ email, dni, password }) {
     fireAuth().createUserWithEmailAndPassword(email, password)
       .then(async (user) => {
-        await alumnosRef.child(dni).set({ email });
+        await alumnosRef.child(dni).update({ email });
+        localStorage.setItem('infoAlumno', JSON.stringify({  }))
         return user;
       })
       .catch((e) => {
@@ -101,7 +103,7 @@ class Aviso {
     this.body = bodyAviso;
   }
 
-  async crear() {
+  static async crear() {
     await avisosRef.child(this.infoCurso.curso)
       .child(this.infoCurso.division)
       .push(this.body);
@@ -111,6 +113,35 @@ class Aviso {
     const avisos = await avisosRef.child(curso).child(division).get();
     const avisosVal = avisos.val();
     return avisosVal;
+  }
+}
+
+class Chat {
+  constructor(idChat) {
+    this.chat = document.getElementById(idChat);
+    this.mensajes = document.getElementById('mensajes');
+    this.controles = document.getElementById('controles');
+  }
+
+  enviarMensaje() {
+    let userEmail = fireAuth().currentUser.email;
+    userEmail = userEmail.replaceAll('.', '-');
+    chatRef.child(userEmail).child('mensajes').push({
+      body: 'jeje'
+    })
+  }
+
+  mostrarMensaje(msg, esEnviado = true) {
+    let nuevoMensaje = document.createElement('div');
+    nuevoMensaje.classList.add('mensaje');
+    nuevoMensaje.classList.add(esEnviado ? 'msg-r' : 'msg-l');
+  
+    let textoMensaje = document.createElement('p');
+    if(msg === '') return false;
+    textoMensaje.innerText = msg;
+    
+    nuevoMensaje.appendChild(textoMensaje);
+    this.mensajes.appendChild(nuevoMensaje);
   }
 }
 
@@ -160,16 +191,12 @@ function initializeApp (){
   })
 };
 
-
-
-
-
 // following are the code to change sidebar button(optional)
 function menuBtnChange() {
- if(sidebar.classList.contains("open")){
-   closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");//replacing the iocns class
- }else {
-   closeBtn.classList.replace("bx-menu-alt-right","bx-menu");//replacing the iocns class
- }
+  if(sidebar.classList.contains("open")){
+    closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");//replacing the iocns class
+  }else {
+    closeBtn.classList.replace("bx-menu-alt-right","bx-menu");//replacing the iocns class
+  }
 }
 

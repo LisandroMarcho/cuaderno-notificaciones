@@ -11,8 +11,8 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 if(location.hostname === "localhost") {
-	firebase.database().useEmulator("localhost", 9000);
-	firebase.auth().useEmulator("http://localhost:9099");
+  firebase.database().useEmulator("localhost", 9000);
+  firebase.auth().useEmulator("http://localhost:9099", { disableWarnings: true });
 }
 
 const fireAuth = firebase.auth;
