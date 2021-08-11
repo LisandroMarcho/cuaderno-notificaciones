@@ -232,9 +232,6 @@
   transition: all 0.5s ease;
   z-index: 2;
 }
-.sidebar.open ~ .home-section{
-  left: 250px;
-}
 .home-section .text{
   display: inline-block;
   color: #11101d;
@@ -247,3 +244,43 @@
     display: none;
   }
 }
+
+
+.aviso .fort {
+    border-radius: 50%;
+    height: 45px; 
+    width: 45px;
+
+}
+
+.aviso__header {
+    display: flex;
+    flex-direction: row;
+}
+
+.aviso__persona {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 11px;
+}
+
+.aviso, .consulta {
+    padding: 7px;
+    overflow: hidden;
+    background-color: #EAEAEA;
+    border-color: black;
+    border-width: thin;
+    border-style: solid;
+    border-radius: 1.5mm;
+    margin: 1%;
+    margin-bottom: 11px;
+}
+.avisos {
+    padding: 25px;
+}
+
+/* 
+git add www/css/index.css
+git commit -m "Arreglo del navbar" 
+*/
