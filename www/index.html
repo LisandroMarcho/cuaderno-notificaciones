@@ -12,12 +12,19 @@
     <body>
         <div class="sidebar">
         <div class="logo-details">
-            <i class='bx bxl-c-plus-plus icon'></i>
-        <div class="logo_name">Cuaderno Virtual</div>
+            <i class='bx bxs-school icon'></i>
+            <div class="logo_name">Cuaderno Virtual</div>
             <i class='bx bx-menu' id="btn" ></i>
         </div>
     
     <ul class="nav-list">
+      <li>
+        <a href="index.html">
+          <i class='bx bx-home'></i>
+          <span class="links_name">Inicio</span>
+        </a>
+         <span class="tooltip">Inicio</span>
+      </li>
       <li>
         <a href="horarios.html">
           <i class='bx bx-grid-alt'></i>
@@ -26,18 +33,18 @@
          <span class="tooltip">Horarios</span>
       </li>
      <li>
-       <a href="consultas.html">
-         <i class='bx bx-chat' ></i>
-         <span class="links_name">Consultas</span>
-       </a>
-       <span class="tooltip">Consultas</span>
-     </li>
-     <li>
        <a href="calificaciones.html">
          <i class='bx bx-pie-chart-alt-2' ></i>
          <span class="links_name">Calificaciones</span>
        </a>
        <span class="tooltip">Calificaciones</span>
+     </li>
+     <li>
+       <a href="consultas.html">
+         <i class='bx bx-question-mark'></i>
+         <span class="links_name">Consultas</span>
+       </a>
+       <span class="tooltip">Consultas</span>
      </li>
      <li>
        <a href="configuracion.html">
@@ -50,13 +57,35 @@
          <div class="profile-details">
            <img src="img/profile.png" alt="profileImg">
          </div>
+        <a href="login.html">
          <i class='bx bx-log-out' id="log_out" ></i>
+        </a>
      </li>
     </ul>
   </div>
   <section class="home-section">
       <div class="text">Avisos</div>
-  </section>
+  <main>
+  <section class="avisos">
+                <section class="aviso">
+                    <section class="aviso__header">
+                        <img class="fort" src="./img/riki.jpg">
+                        <section class="aviso__persona">
+                            <h3>Soledad Casas</h3>
+                            <h6>Preceptora</h6><br>
+                        </section>
+                    </section>
+                    <h5>Alumnos mañana miercoles 26 de agosto falta el profesor Formica.</h5>
+                </section>
+
+                <section class="aviso">
+                    <h3>Carlos Covini</h3>
+                    <h6>Vicedirector</h6><br>
+                    <h5>Alumnos el 29 de septiembre tendremos la exposicion de Calidad educativa.</h5>
+                </section>
+
+            </section>
+        </main>
   <script src="js/index.js"></script>
   <script type="js/config.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>

@@ -231,6 +231,7 @@
   width: calc(100% - 78px);
   transition: all 0.5s ease;
   z-index: 2;
+  padding: 20px;
 }
 .home-section .text{
   display: inline-block;
@@ -244,13 +245,10 @@
     display: none;
   }
 }
-
-
 .aviso .fort {
     border-radius: 50%;
     height: 45px; 
     width: 45px;
-
 }
 
 .aviso__header {
@@ -276,9 +274,38 @@
     margin: 1%;
     margin-bottom: 11px;
 }
-.avisos {
-    padding: 25px;
+.opcion{
+    padding: 8px;
+    overflow: hidden;
+    background-color: #EAEAEA;
+    border-color: black;
+    border-width: thin;
+    border-style: solid;
+    border-radius: 2.5mm;
+    margin: 0 auto;
+    justify-content: center;
+    font-family: Calibri;    
 }
+td{
+    font-family: Calibri;
+    padding: 0 5px;
+}
+td.izquierda{
+    text-align: left;
+}
+.notas {
+    padding: 8px;
+    overflow: hidden;
+    background-color: #EAEAEA;
+    border-color: black;
+    border-width: thin;
+    border-style: solid;
+    border-radius: 2.5mm;
+    margin: 0 auto;
+    text-align: center;
+    justify-content: center;
+}
+
 
 /* 
 git add www/css/index.css

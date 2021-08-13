@@ -51,6 +51,7 @@
 .login-box input[type="submit"] {
   border: none;
   outline: none;
+  width: 258px;
   height: 40px;
   background: #599FC7;
   color: #fff;
