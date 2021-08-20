@@ -66,7 +66,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="Alumno.html">Alumno</a></li><li><a href="Aviso.html">Aviso</a></li></ul><h3>Global</h3><ul><li><a href="global.html#initializeApp">initializeApp</a></li><li><a href="global.html#isLoggedIn">isLoggedIn</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#cerrarSesion">cerrarSesion</a></li><li><a href="global.html#iniciarSesion">iniciarSesion</a></li><li><a href="global.html#initializeApp">initializeApp</a></li><li><a href="global.html#isLoggedIn">isLoggedIn</a></li><li><a href="global.html#registrarAlumno">registrarAlumno</a></li></ul></div>
                 
             </nav>
         </div>
@@ -160,6 +160,343 @@
 
 
     
+    <h4 class="name" id="cerrarSesion">
+        <a class="href-link" href="#cerrarSesion">#</a>
+        
+        <span class="code-name">
+            
+                cerrarSesion<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Cierra la sesión del alumno.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="index.js.html" class="button">View Source</a>
+            <span>
+                <a href="index.js.html">index.js</a>, <a href="index.js.html#line74">line 74</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    
+        <pre class="prettyprint"><code>Alumno.cerrarSesion();</code></pre>
+    
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="iniciarSesion">
+        <a class="href-link" href="#iniciarSesion">#</a>
+        
+            
+                <span class='tag'>async</span>
+            
+        
+        <span class="code-name">
+            
+                iniciarSesion<span class="signature">(credentials)</span><span class="type-signature"> &rarr; {Object}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Autentica un usuario con un email y contraseña
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>credentials</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Object</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">Objeto con las credenciales</td>
+</tr>
+
+  
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>dni</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Number</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">DNI del usuario</td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>password</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">String</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">Contraseña del usuario</td>
+</tr>
+
+  
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="index.js.html" class="button">View Source</a>
+            <span>
+                <a href="index.js.html">index.js</a>, <a href="index.js.html#line59">line 59</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'>User or error</div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">Object</span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+    <h5>Example</h5>
+    
+    
+        <pre class="prettyprint"><code>const credenciales = { email: 'mail@example.com', password: 'example_password'};const result = await Alumno.iniciarSesion(credenciales);</code></pre>
+    
+
+
+</div>
+            
+                <div class="member">
+
+
+    
     <h4 class="name" id="initializeApp">
         <a class="href-link" href="#initializeApp">#</a>
         
@@ -225,7 +562,7 @@
         <p class="tag-source">
             <a href="index.js.html" class="button">View Source</a>
             <span>
-                <a href="index.js.html">index.js</a>, <a href="index.js.html#line170">line 170</a>
+                <a href="index.js.html">index.js</a>, <a href="index.js.html#line100">line 100</a>
             </span>
         </p>
     
@@ -373,7 +710,7 @@
         <p class="tag-source">
             <a href="index.js.html" class="button">View Source</a>
             <span>
-                <a href="index.js.html">index.js</a>, <a href="index.js.html#line152">line 152</a>
+                <a href="index.js.html">index.js</a>, <a href="index.js.html#line82">line 82</a>
             </span>
         </p>
     
@@ -397,6 +734,258 @@
 
 
 
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="registrarAlumno">
+        <a class="href-link" href="#registrarAlumno">#</a>
+        
+        <span class="code-name">
+            
+                registrarAlumno<span class="signature">(credentials)</span><span class="type-signature"> &rarr; {Object}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Registra un usuario con email y contraseña.TODO: Vincular dni con el usuario
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>credentials</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Object</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">Objeto con las credenciales</td>
+</tr>
+
+  
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>email</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">String</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">Correo electronico del usuario</td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>dni</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Number</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">DNI del usuario</td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>password</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">String</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">Contraseña del usuario</td>
+</tr>
+
+  
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="index.js.html" class="button">View Source</a>
+            <span>
+                <a href="index.js.html">index.js</a>, <a href="index.js.html#line32">line 32</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'>User or error</div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">Object</span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+    <h5>Example</h5>
+    
+    
+        <pre class="prettyprint"><code>const credenciales = { email: 'mail@example.com', password: 'example_password'};const result = await Alumno.registrar(credenciales);</code></pre>
+    
 
 
 </div>
