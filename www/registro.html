@@ -16,9 +16,6 @@
             <img class="avatar" src="img/tec.jpg">
             <form name="f1" id="formulario">
                 <br>
-                <label for="numdni">DNI del alumno: </label>
-                <input type="number" id="dni" placeholder="Ej:1234567890" required>
-
                 <label for="email">Ingrese su Email:</label>
                 <input type="email" id="email" placeholder="ejemplo@gmail.com" required>
 
@@ -33,8 +30,7 @@
                 </div>
 
                 <div class="submit">
-                    <input type="submit" value="Entrar"></input> <br>
-
+                    <input type="submit" value="Registrarse"></input>
                 </div>
                 <div class="a">
                     <a href="login.html" id="a">Ya tengo cuenta.</a>
@@ -53,21 +49,16 @@
 
             document.getElementById('formulario').onsubmit = (e) => {
                 e.preventDefault();
+                
                 if (!comprobarClave()) {
-                    throw new Error('Las contraseñas no coinciden');
+                    alert('Las contraseñas no coinciden');
                 }
-                registrar();
+                
+                const email = document.getElementById('email');
+                const clave1 = document.getElementById('clave1');
+                
+                registrarAlumno(email.value, clave1.value);
             };
-        }
-
-        function registrar() {
-            const credenciales = {
-                dni: document.getElementById('dni').value,
-                email: document.getElementById('email').value,
-                password: document.getElementById('clave1').value,
-            };
-
-            Alumno.registrar(credenciales)
         }
 
         function comprobarClave() {

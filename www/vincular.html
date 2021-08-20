@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+    <link rel="stylesheet" href="css/login.css">
+    <title>Registro</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="login-box">
+            <img class="avatar" src="img/tec.jpg">
+            <form name="f1" id="formulario">
+                <br>
+                <label for="dni">DNI del alumno:</label>
+                <input type="number" id="dni" placeholder="Ejemplo: 12222222" required>
+
+                <label for="contraseña">Seleccione el curso:</label>
+                <div class="password">
+                    <select id="listaCursos" required>
+                        <option>Cargando...</option>
+                    </select>
+                </div>
+
+                <div class="submit">
+                    <input type="submit" value="Registrarse"></input>
+                </div>
+                <div class="a">
+                    <a href="index.html" id="a">Ir al inicio</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/index.js"></script>
+    <script>
+        window.onload = () => {
+            initializeApp();
+            listarCursos();
+
+            document.getElementById('formulario').onsubmit = (e) => {
+                e.preventDefault();
+
+                const dni = document.getElementById('dni');
+                const listaCursos = document.getElementById('listaCursos');
+
+                vincularAlumno (
+                    firebase.auth().currentUser, 
+                    listaCursos.value,
+                    dni.value
+                );
+            };
+        }
+    </script>
+</body>
+
+</html>

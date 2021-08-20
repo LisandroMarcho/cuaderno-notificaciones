@@ -2,6 +2,7 @@ const sidebar = document.querySelector(".sidebar");
 const closeBtn = document.querySelector("#btn");
 
 const cursosRef = firebase.database().ref("cursos/");
+const padresRef = firebase.database().ref("padres/");
 
 /**
  * Registra un usuario con email y contraseña.
@@ -19,17 +20,25 @@ const cursosRef = firebase.database().ref("cursos/");
  * const result = await registrarAlumno(credenciales);
  * @returns {Object} User or error
  */
-function registrarAlumno({ email, dni, password }) {
-  firebase.auth()
-    .createUserWithEmailAndPassword(email, password)
-    .then(async (user) => {
-      await alumnosRef.child(dni).update({ email });
-      localStorage.setItem("infoAlumno", JSON.stringify({}));
-      return user;
-    })
-    .catch((e) => {
-      console.log(e);
-    });
+async function registrarAlumno(email, password) {
+  try {
+    const createdUser = await firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password);
+    return createdUser;
+  } catch (error) {
+    switch (error.code) {
+      case "auth/weak-password":
+        alert("Tu contraseña debe ser de al menos 6 carácteres.");
+        break;
+      case "auth/email-already-in-use":
+        alert("El correo ya está en uso. Utiliza uno diferente.");
+        break;
+      default:
+        alert("Hubo un error en el registro del usuario.");
+        break;
+    }
+  }
 }
 
 /**
@@ -49,22 +58,20 @@ function registrarAlumno({ email, dni, password }) {
  */
 async function iniciarSesion(email, password) {
   try {
-    const userCredential = await firebase.auth().signInWithEmailAndPassword(
-      email,
-      password
-    );
-    return userCredential.user;  
+    const userCredential = await firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password);
+    return userCredential.user;
   } catch (error) {
     switch (error.code) {
       case "auth/user-not-found":
-        console.log("No se encontró el usuario.");
+        alert("No se encontró el usuario.");
         break;
       case "auth/wrong-password":
-        console.log("Contraseña incorrecta.");
+        alert("Contraseña incorrecta.");
         break;
     }
   }
-  
 }
 
 /**
@@ -78,43 +85,88 @@ function cerrarSesion() {
 
 /**
  * Verifica si el cliente tiene una sesión iniciada
- * @param {Object} user
+ * @param {Object} usuario
  */
-function isLoggedIn(user) {
+async function esUsuarioValido(usuario) {
   const pathname = window.location.pathname;
   const filename = pathname.slice(pathname.lastIndexOf("/") + 1);
 
-  if (user == null) {
+  if (usuario === null) {
     if (filename !== "login.html" && filename !== "registro.html") {
       window.location = "login.html";
     }
-  } else {
+  }
+
+  const infoPadreSnap = await padresRef.child(usuario.uid).get();
+  const infoPadre = await infoPadreSnap.val();
+
+  if (infoPadre === null && filename !== "vincular.html") {
+    window.location = "vincular.html";
+  }
+
+  if (infoPadre !== null) {
     if (filename === "login.html" || filename === "registro.html") {
       window.location = "index.html";
     }
   }
 }
 
+async function listarCursos() {
+  const selectCursos = document.getElementById("listaCursos");
+  cursosRef.once("value", (cursosSnap) => {
+    cursosSnap.forEach((curso) => {
+      const ident = curso.child("ident").val();
+      selectCursos.innerHTML += `
+      <option value="${curso.key}">
+        ${ident}
+      </option>`;
+    });
+    
+    selectCursos.children[0].remove();
+    selectCursos.disabled = false;
+  });
+}
+
+async function vincularAlumno(usuario, cursoAlumno, dniAlumno) {
+  debugger;
+  const alumnoSnap = await cursosRef.child(cursoAlumno).child('alumnos').child(dniAlumno).get();
+  const alumnoVal = await alumnoSnap.val();
+  
+  if(alumnoVal !== null) {
+    await padresRef.child(usuario.uid).child(dniAlumno).update({ curso: cursoAlumno });
+    esUsuarioValido(usuario);
+  } else alert('No se encuentra al alumno en ese curso.');
+
+}
+
 /**
  * Inicializa la applicación
  */
 function initializeApp() {
-  firebase.auth().onAuthStateChanged(isLoggedIn);
+  firebase.auth().onAuthStateChanged(esUsuarioValido);
 
-  closeBtn && closeBtn.addEventListener("click", () => {
-    sidebar.classList.toggle("open");
-    menuBtnChange(); //calling the function(optional)
-  });
+  closeBtn && closeBtn.addEventListener("click", toggleSidenav);
 
   const initiallyDisabledElements = document.querySelectorAll(".init-disabled");
+
   initiallyDisabledElements.forEach((element) => {
     element.classList.remove("init-disabled");
     element.disabled = false;
   });
 }
 
-// following are the code to change sidebar button(optional)
-function menuBtnChange() {
+/**
+ * Abre y cierra el sidenav.
+ */
+function toggleSidenav() {
+  sidebar.classList.toggle("open");
+  actualizarBtnSidenav();
+}
+
+/**
+ * Cambia el diseño del ícono del sidenav.
+ */
+function actualizarBtnSidenav() {
   if (sidebar.classList.contains("open")) {
     closeBtn.classList.replace("bx-menu", "bx-menu-alt-right"); //replacing the iocns class
   } else {
