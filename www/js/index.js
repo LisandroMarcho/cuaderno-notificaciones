@@ -10,7 +10,6 @@ const cursosRef = firebase.database().ref("cursos/");
  * @param {String} credentials.email      Correo electronico del usuario
  * @param {Number} credentials.dni        DNI del usuario
  * @param {String} credentials.password   Contraseña del usuario
- * @namespace Usuario
  * @example
  * const credenciales = {
  *  email: 'mail@example.com',
@@ -39,7 +38,6 @@ function registrarAlumno({ email, dni, password }) {
  * @param {Object} credentials            Objeto con las credenciales
  * @param {Number} credentials.dni        DNI del usuario
  * @param {String} credentials.password   Contraseña del usuario
- * @namespace Usuario
  * @example
  * const credenciales = {
  *  email: 'mail@example.com',
@@ -71,7 +69,6 @@ async function iniciarSesion(email, password) {
 
 /**
  * Cierra la sesión del alumno.
- * @namespace Usuario
  * @example
  * cerrarSesion();
  */
