@@ -10,13 +10,14 @@ const cursosRef = firebase.database().ref("cursos/");
  * @param {String} credentials.email      Correo electronico del usuario
  * @param {Number} credentials.dni        DNI del usuario
  * @param {String} credentials.password   Contraseña del usuario
+ * @namespace Usuario
  * @example
  * const credenciales = {
  *  email: 'mail@example.com',
  *  password: 'example_password'
  * };
  *
- * const result = await Alumno.registrar(credenciales);
+ * const result = await registrarAlumno(credenciales);
  * @returns {Object} User or error
  */
 function registrarAlumno({ email, dni, password }) {
@@ -34,32 +35,45 @@ function registrarAlumno({ email, dni, password }) {
 
 /**
  * Autentica un usuario con un email y contraseña
+ * TODO: Alerta de errores
  * @param {Object} credentials            Objeto con las credenciales
  * @param {Number} credentials.dni        DNI del usuario
  * @param {String} credentials.password   Contraseña del usuario
+ * @namespace Usuario
  * @example
  * const credenciales = {
  *  email: 'mail@example.com',
  *  password: 'example_password'
  * };
  *
- * const result = await Alumno.iniciarSesion(credenciales);
+ * const result = await iniciarSesion(credenciales);
  * @returns {Object} User or error
  */
-async function iniciarSesion({ dni, password }) {
-  const alumnoRef = await alumnosRef.child(dni).get();
-  const { email } = alumnoRef.val();
-  const userCredential = await firebase.auth().signInWithEmailAndPassword(
-    email,
-    password
-  );
-  return userCredential.user;
+async function iniciarSesion(email, password) {
+  try {
+    const userCredential = await firebase.auth().signInWithEmailAndPassword(
+      email,
+      password
+    );
+    return userCredential.user;  
+  } catch (error) {
+    switch (error.code) {
+      case "auth/user-not-found":
+        console.log("No se encontró el usuario.");
+        break;
+      case "auth/wrong-password":
+        console.log("Contraseña incorrecta.");
+        break;
+    }
+  }
+  
 }
 
 /**
  * Cierra la sesión del alumno.
+ * @namespace Usuario
  * @example
- * Alumno.cerrarSesion();
+ * cerrarSesion();
  */
 function cerrarSesion() {
   firebase.auth().signOut();
