@@ -68,7 +68,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#cerrarSesion">cerrarSesion</a></li><li><a href="global.html#iniciarSesion">iniciarSesion</a></li><li><a href="global.html#initializeApp">initializeApp</a></li><li><a href="global.html#isLoggedIn">isLoggedIn</a></li><li><a href="global.html#registrarAlumno">registrarAlumno</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Namespaces</h3><ul><li><a href="Usuario.html">Usuario</a></li></ul><h3>Global</h3><ul><li><a href="global.html#initializeApp">initializeApp</a></li><li><a href="global.html#isLoggedIn">isLoggedIn</a></li></ul></div>
                 
             </nav>
         </div>
@@ -85,20 +85,10 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const cursosRef = firebase.database().ref("cursos/");
-// const avisosRef = firebase.database().ref("avisos/");
-//const chatRef    = firebase.database().ref("chat/");
+            <pre class="prettyprint source linenums"><code>const sidebar = document.querySelector(".sidebar");
+const closeBtn = document.querySelector("#btn");
 
-// Wait for the deviceready event before using any of Cordova's device APIs.
-// See https://cordova.apache.org/docs/en/latest/cordova/events/events.html#deviceready
-// document.addEventListener("deviceready", onDeviceReady, false);
-
-// /**
-// Funcion por defecto de Cordova para cuando se pueden usar las API
-// /
-// function onDeviceReady() {
-
-// }
+const cursosRef = firebase.database().ref("cursos/");
 
 /**
  * Registra un usuario con email y contraseña.
@@ -107,13 +97,14 @@
  * @param {String} credentials.email      Correo electronico del usuario
  * @param {Number} credentials.dni        DNI del usuario
  * @param {String} credentials.password   Contraseña del usuario
+ * @namespace Usuario
  * @example
  * const credenciales = {
  *  email: 'mail@example.com',
  *  password: 'example_password'
  * };
  *
- * const result = await Alumno.registrar(credenciales);
+ * const result = await registrarAlumno(credenciales);
  * @returns {Object} User or error
  */
 function registrarAlumno({ email, dni, password }) {
@@ -131,32 +122,45 @@ function registrarAlumno({ email, dni, password }) {
 
 /**
  * Autentica un usuario con un email y contraseña
+ * TODO: Alerta de errores
  * @param {Object} credentials            Objeto con las credenciales
  * @param {Number} credentials.dni        DNI del usuario
  * @param {String} credentials.password   Contraseña del usuario
+ * @namespace Usuario
  * @example
  * const credenciales = {
  *  email: 'mail@example.com',
  *  password: 'example_password'
  * };
  *
- * const result = await Alumno.iniciarSesion(credenciales);
+ * const result = await iniciarSesion(credenciales);
  * @returns {Object} User or error
  */
-async function iniciarSesion({ dni, password }) {
-  const alumnoRef = await alumnosRef.child(dni).get();
-  const { email } = alumnoRef.val();
-  const userCredential = await firebase.auth().signInWithEmailAndPassword(
-    email,
-    password
-  );
-  return userCredential.user;
+async function iniciarSesion(email, password) {
+  try {
+    const userCredential = await firebase.auth().signInWithEmailAndPassword(
+      email,
+      password
+    );
+    return userCredential.user;  
+  } catch (error) {
+    switch (error.code) {
+      case "auth/user-not-found":
+        console.log("No se encontró el usuario.");
+        break;
+      case "auth/wrong-password":
+        console.log("Contraseña incorrecta.");
+        break;
+    }
+  }
+  
 }
 
 /**
  * Cierra la sesión del alumno.
+ * @namespace Usuario
  * @example
- * Alumno.cerrarSesion();
+ * cerrarSesion();
  */
 function cerrarSesion() {
   firebase.auth().signOut();
@@ -185,18 +189,14 @@ function isLoggedIn(user) {
  * Inicializa la applicación
  */
 function initializeApp() {
-  let sidebar = document.querySelector(".sidebar");
-  let closeBtn = document.querySelector("#btn");
+  firebase.auth().onAuthStateChanged(isLoggedIn);
 
-  // firebase.auth().onAuthStateChanged(isLoggedIn);
-
-  closeBtn.addEventListener("click", () => {
+  closeBtn &amp;&amp; closeBtn.addEventListener("click", () => {
     sidebar.classList.toggle("open");
     menuBtnChange(); //calling the function(optional)
   });
 
   const initiallyDisabledElements = document.querySelectorAll(".init-disabled");
-
   initiallyDisabledElements.forEach((element) => {
     element.classList.remove("init-disabled");
     element.disabled = false;
