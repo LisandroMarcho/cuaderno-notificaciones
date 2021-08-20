@@ -1,17 +1,7 @@
+const sidebar = document.querySelector(".sidebar");
+const closeBtn = document.querySelector("#btn");
+
 const cursosRef = firebase.database().ref("cursos/");
-// const avisosRef = firebase.database().ref("avisos/");
-//const chatRef    = firebase.database().ref("chat/");
-
-// Wait for the deviceready event before using any of Cordova's device APIs.
-// See https://cordova.apache.org/docs/en/latest/cordova/events/events.html#deviceready
-// document.addEventListener("deviceready", onDeviceReady, false);
-
-// /**
-// Funcion por defecto de Cordova para cuando se pueden usar las API
-// /
-// function onDeviceReady() {
-
-// }
 
 /**
  * Registra un usuario con email y contraseña.
@@ -98,18 +88,14 @@ function isLoggedIn(user) {
  * Inicializa la applicación
  */
 function initializeApp() {
-  let sidebar = document.querySelector(".sidebar");
-  let closeBtn = document.querySelector("#btn");
+  firebase.auth().onAuthStateChanged(isLoggedIn);
 
-  // firebase.auth().onAuthStateChanged(isLoggedIn);
-
-  closeBtn.addEventListener("click", () => {
+  closeBtn && closeBtn.addEventListener("click", () => {
     sidebar.classList.toggle("open");
     menuBtnChange(); //calling the function(optional)
   });
 
   const initiallyDisabledElements = document.querySelectorAll(".init-disabled");
-
   initiallyDisabledElements.forEach((element) => {
     element.classList.remove("init-disabled");
     element.disabled = false;
