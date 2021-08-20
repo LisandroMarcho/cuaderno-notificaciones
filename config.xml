@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-versionCode="1" id="ml.marchionni.cuaderno" version="0.5.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Cuaderno de Comunicaciones</name>
+<widget android-versionCode="2" id="ml.marchionni.cuaderno" version="0.5.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name short="CDC">Cuaderno de Comunicaciones</name>
     <description>
         Una aplicación para informes de la institución a las familias.
     </description>
