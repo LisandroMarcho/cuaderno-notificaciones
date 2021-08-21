@@ -68,7 +68,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#actualizarBtnSidenav">actualizarBtnSidenav</a></li><li><a href="global.html#cerrarSesion">cerrarSesion</a></li><li><a href="global.html#esUsuarioValido">esUsuarioValido</a></li><li><a href="global.html#iniciarSesion">iniciarSesion</a></li><li><a href="global.html#initializeApp">initializeApp</a></li><li><a href="global.html#registrarAlumno">registrarAlumno</a></li><li><a href="global.html#toggleSidenav">toggleSidenav</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#actualizarBtnSidenav">actualizarBtnSidenav</a></li><li><a href="global.html#cerrarSesion">cerrarSesion</a></li><li><a href="global.html#esUsuarioValido">esUsuarioValido</a></li><li><a href="global.html#iniciarSesion">iniciarSesion</a></li><li><a href="global.html#initializeApp">initializeApp</a></li><li><a href="global.html#obtenerCursos">obtenerCursos</a></li><li><a href="global.html#registrarAlumno">registrarAlumno</a></li><li><a href="global.html#toggleSidenav">toggleSidenav</a></li><li><a href="global.html#vincularAlumno">vincularAlumno</a></li></ul></div>
                 
             </nav>
         </div>
@@ -198,24 +198,30 @@ async function esUsuarioValido(usuario) {
   }
 }
 
-async function listarCursos() {
-  const selectCursos = document.getElementById("listaCursos");
-  cursosRef.once("value", (cursosSnap) => {
-    cursosSnap.forEach((curso) => {
-      const ident = curso.child("ident").val();
-      selectCursos.innerHTML += `
-      &lt;option value="${curso.key}">
-        ${ident}
-      &lt;/option>`;
+/**
+ * Devuelve la lista completa de cursos.
+ * **USAR CON PRECAUCION: TRAE EL OBJETO DE CURSOS COMPLETO**
+ * @returns {Object} Array de cursos
+ */
+async function obtenerCursos() {
+  let arr = [];
+  
+  await cursosRef.once("value", (cursosSnap) => {
+    cursosSnap.forEach(curso => {
+      arr[curso.key] = curso.child('ident').val();
     });
-    
-    selectCursos.children[0].remove();
-    selectCursos.disabled = false;
   });
+
+  return arr;
 }
 
+/**
+ * Vincula un padre con un alumno.
+ * @param {Object} usuario Usuario actual
+ * @param {string} cursoAlumno ID del curso actual
+ * @param {string} dniAlumno DNI del alumno a vincular
+ */
 async function vincularAlumno(usuario, cursoAlumno, dniAlumno) {
-  debugger;
   const alumnoSnap = await cursosRef.child(cursoAlumno).child('alumnos').child(dniAlumno).get();
   const alumnoVal = await alumnoSnap.val();
   
