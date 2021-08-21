@@ -111,24 +111,30 @@ async function esUsuarioValido(usuario) {
   }
 }
 
-async function listarCursos() {
-  const selectCursos = document.getElementById("listaCursos");
-  cursosRef.once("value", (cursosSnap) => {
-    cursosSnap.forEach((curso) => {
-      const ident = curso.child("ident").val();
-      selectCursos.innerHTML += `
-      <option value="${curso.key}">
-        ${ident}
-      </option>`;
+/**
+ * Devuelve la lista completa de cursos.
+ * **USAR CON PRECAUCION: TRAE EL OBJETO DE CURSOS COMPLETO**
+ * @returns {Object} Array de cursos
+ */
+async function obtenerCursos() {
+  let arr = [];
+  
+  await cursosRef.once("value", (cursosSnap) => {
+    cursosSnap.forEach(curso => {
+      arr[curso.key] = curso.child('ident').val();
     });
-    
-    selectCursos.children[0].remove();
-    selectCursos.disabled = false;
   });
+
+  return arr;
 }
 
+/**
+ * Vincula un padre con un alumno.
+ * @param {Object} usuario Usuario actual
+ * @param {string} cursoAlumno ID del curso actual
+ * @param {string} dniAlumno DNI del alumno a vincular
+ */
 async function vincularAlumno(usuario, cursoAlumno, dniAlumno) {
-  debugger;
   const alumnoSnap = await cursosRef.child(cursoAlumno).child('alumnos').child(dniAlumno).get();
   const alumnoVal = await alumnoSnap.val();
   
