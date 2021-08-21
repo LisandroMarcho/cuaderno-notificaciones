@@ -50,6 +50,7 @@
             for(key in cursos) {
                 selectCursos.innerHTML += `<option value="${key}">${cursos[key]}</option>`;
             } 
+            selectCursos.children[0].remove();
 
             document.getElementById('formulario').onsubmit = (e) => {
                 e.preventDefault();
