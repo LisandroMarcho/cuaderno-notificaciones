@@ -227,6 +227,7 @@ async function vincularAlumno(usuario, cursoAlumno, dniAlumno) {
   
   if(alumnoVal !== null) {
     await padresRef.child(usuario.uid).child(dniAlumno).update({ curso: cursoAlumno });
+    await cursosRef.child(cursoAlumno).child('alumnos').child(dniAlumno).child('padres').child({ padre: firebase.auth().currentUser.uid }).set(true);
     if(!confirm('Alumno vinculado exitosamente. \n¿Desea vincular otro alumno?')) window.location = 'index.html';
   } else alert('No se encuentra al alumno en ese curso.');
 
