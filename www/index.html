@@ -1,70 +1,72 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="format-detection" content="telephone=no">
-        <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="css/index.css">
-        <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-        <title>Inicio</title>
-    </head>
-    <body>
-        <div class="sidebar">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/index.css">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <title>Inicio</title>
+</head>
+
+<body>
+    <div class="sidebar">
         <div class="logo-details">
             <i class='bx bxs-school icon'></i>
             <div class="logo_name">Cuaderno Virtual</div>
-            <i class='bx bx-menu' id="btn" ></i>
+            <i class='bx bx-menu' id="btn"></i>
         </div>
-    
-    <ul class="nav-list">
-      <li>
-        <a href="index.html">
-          <i class='bx bx-home'></i>
-          <span class="links_name">Inicio</span>
-        </a>
-         <span class="tooltip">Inicio</span>
-      </li>
-      <li>
-        <a href="horarios.html">
-          <i class='bx bx-grid-alt'></i>
-          <span class="links_name">Horarios</span>
-        </a>
-         <span class="tooltip">Horarios</span>
-      </li>
-     <li>
-       <a href="calificaciones.html">
-         <i class='bx bx-pie-chart-alt-2' ></i>
-         <span class="links_name">Calificaciones</span>
-       </a>
-       <span class="tooltip">Calificaciones</span>
-     </li>
-     <li>
-       <a href="consultas.html">
-         <i class='bx bx-question-mark'></i>
-         <span class="links_name">Consultas</span>
-       </a>
-       <span class="tooltip">Consultas</span>
-     </li>
-     <li class="profile">
-         <div class="profile-details">
-           <img src="img/profile.png" alt="profileImg">
-         </div>
-        <a href="login.html">
-         <i class='bx bx-log-out' id="log_out" ></i>
-        </a>
-     </li>
-    </ul>
-  </div>
-  <section class="home-section">
-      <div class="text">Avisos</div>
-  <main>
-  <section class="avisos">
+
+        <ul class="nav-list">
+            <li>
+                <a href="index.html">
+                    <i class='bx bx-home'></i>
+                    <span class="links_name">Inicio</span>
+                </a>
+                <span class="tooltip">Inicio</span>
+            </li>
+            <li>
+                <a href="horarios.html">
+                    <i class='bx bx-grid-alt'></i>
+                    <span class="links_name">Horarios</span>
+                </a>
+                <span class="tooltip">Horarios</span>
+            </li>
+            <li>
+                <a href="calificaciones.html">
+                    <i class='bx bx-pie-chart-alt-2'></i>
+                    <span class="links_name">Calificaciones</span>
+                </a>
+                <span class="tooltip">Calificaciones</span>
+            </li>
+            <li>
+                <a href="consultas.html">
+                    <i class='bx bx-question-mark'></i>
+                    <span class="links_name">Consultas</span>
+                </a>
+                <span class="tooltip">Consultas</span>
+            </li>
+            <li class="profile">
+                <div class="profile-details">
+                    <img src="img/profile.png" alt="profileImg">
+                </div>
+                <a href="login.html">
+                    <i class='bx bx-log-out' id="log_out"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <section class="home-section">
+        <div class="text">Avisos</div>
+        <main>
+            <section class="avisos">
                 <section class="aviso">
                     <section class="aviso__header">
                         <section class="aviso__persona">
                             <h3>Soledad Casas</h3>
-                            <h6>Preceptora</h6><br>
+                            <h6>Preceptora</h6>
                         </section>
                     </section>
                     <h5>Alumnos mañana miercoles 26 de agosto falta el profesor Formica.</h5>
@@ -75,20 +77,18 @@
                     <h6>Vicedirector</h6><br>
                     <h5>Alumnos el 29 de septiembre tendremos la exposicion de Calidad educativa.</h5>
                 </section>
-
             </section>
         </main>
-  
- 
-  <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-database.js"></script>
-  <script type="js/config.js"></script>
-  <script src="js/index.js"></script>
-  <script>
-    window.onload = () => {
-      initializeApp();
-    }
-  </script>
+        <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>
+        <script src="js/config.js"></script>
+        <script src="js/index.js"></script>
+        <script>
+            window.onload = () => {
+                initializeApp();
+            }
+        </script>
 </body>
+
 </html>
