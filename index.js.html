@@ -68,7 +68,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#actualizarBtnSidenav">actualizarBtnSidenav</a></li><li><a href="global.html#cerrarSesion">cerrarSesion</a></li><li><a href="global.html#esUsuarioValido">esUsuarioValido</a></li><li><a href="global.html#iniciarSesion">iniciarSesion</a></li><li><a href="global.html#initializeApp">initializeApp</a></li><li><a href="global.html#obtenerCursos">obtenerCursos</a></li><li><a href="global.html#obtenerDatosPadre">obtenerDatosPadre</a></li><li><a href="global.html#registrarAlumno">registrarAlumno</a></li><li><a href="global.html#toggleSidenav">toggleSidenav</a></li><li><a href="global.html#vincularAlumno">vincularAlumno</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#actualizarBtnSidenav">actualizarBtnSidenav</a></li><li><a href="global.html#cambiarAlumno">cambiarAlumno</a></li><li><a href="global.html#cargarAlumnoActual">cargarAlumnoActual</a></li><li><a href="global.html#cerrarSesion">cerrarSesion</a></li><li><a href="global.html#esUsuarioValido">esUsuarioValido</a></li><li><a href="global.html#iniciarSesion">iniciarSesion</a></li><li><a href="global.html#initializeApp">initializeApp</a></li><li><a href="global.html#obtenerAvisos">obtenerAvisos</a></li><li><a href="global.html#obtenerCursos">obtenerCursos</a></li><li><a href="global.html#obtenerDatosAlumno">obtenerDatosAlumno</a></li><li><a href="global.html#obtenerDatosPadre">obtenerDatosPadre</a></li><li><a href="global.html#obtenerHorarios">obtenerHorarios</a></li><li><a href="global.html#registrarAlumno">registrarAlumno</a></li><li><a href="global.html#toggleSidenav">toggleSidenav</a></li><li><a href="global.html#vincularAlumno">vincularAlumno</a></li></ul></div>
                 
             </nav>
         </div>
@@ -91,6 +91,7 @@ const closeBtn = document.querySelector("#btn");
 const cursosRef = firebase.database().ref("cursos/");
 const padresRef = firebase.database().ref("padres/");
 
+let alumnoActual = null;
 let datosPadre = [];
 let horarios = [];
 let avisos = [];
@@ -247,31 +248,73 @@ async function vincularAlumno(usuario, cursoAlumno, dniAlumno) {
  * @returns {Object[]}
  */
 function obtenerDatosPadre (padreUID) {
+  const selectorAlumnos = document.getElementById('selectorAlumnos');
   let arr = [];
 
   padresRef.child(padreUID).once("value", (alumnosVinculados) => {
     alumnosVinculados.forEach((snap) => {
       arr.push({alumno: snap.key, ...snap.val()});
+      selectorAlumnos.innerHTML += `&lt;option data-curso="${snap.child('curso').val()}" value="${snap.key}">${snap.key}&lt;/option>`;
     });
   });
 
   return arr;
 }
 
+/**
+ * Trae los datos de un alumno en específico.
+ * @param {string} keyCurso Identificador del curso
+ * @param {string} keyAlumno Identificador del Alumno (DNI)
+ * @returns {Object} Información del alumno
+ */
 async function obtenerDatosAlumno (keyCurso, keyAlumno) {
   const alumnoSnap = await cursosRef.child(keyCurso).child('alumnos').child(keyAlumno).get();
   const alumnoVal  = await alumnoSnap.val();
   return {...alumnoVal, curso: keyCurso};
 }
 
+/**
+ * Recupera los horarios de un curso en específico.
+ * @param {string} keyCurso Identificador del curso
+ * @returns {DataSnapshot}
+ */
 async function obtenerHorarios (keyCurso) {
   const horariosSnap = await cursosRef.child(keyCurso).child('horarios').get();
   return horariosSnap;
 }
 
+/**
+ * Recupera la lista de avisos de un curso en específico.
+ * @param {string} keyCurso Identificador del curso
+ * @returns {DataSnapshot}
+ */
 async function obtenerAvisos (keyCurso) {
   const avisosSnap = await cursosRef.child(keyCurso).child('avisos').get();
   return avisosSnap;  
+}
+
+/**
+ * Actualiza `alumno-actual` en `localStorage`.
+ * @param {HTMLSelectElement} select Selector de cambio de alumno
+ */
+async function cambiarAlumno(select) {
+  const alumno = {
+    dni: select.value,
+    curso: select.options[select.options.selectedIndex].dataset.curso
+  };
+
+  localStorage.setItem('alumno-actual', JSON.stringify(alumno));
+  window.location.reload();
+}
+
+/**
+ * Establece la variable global `alumnoActual` con el item almacenado en `alumno-actual`
+ * desde `localStorage`.
+ */
+async function cargarAlumnoActual() {
+  const jsonString = localStorage.getItem('alumno-actual');
+  const alumno = JSON.parse(jsonString);
+  alumnoActual = { ...alumno };
 }
 
 /**
