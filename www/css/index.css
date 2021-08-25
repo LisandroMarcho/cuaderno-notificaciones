@@ -259,8 +259,8 @@
     font-size: 14px;
 }
 .opcion{
+    display: flex;
     padding: 8px;
-    overflow: hidden;
     background-color: #EAEAEA;
     border-color: black;
     border-width: thin;
