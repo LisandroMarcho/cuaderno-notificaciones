@@ -4,6 +4,8 @@ const closeBtn = document.querySelector("#btn");
 const cursosRef = firebase.database().ref("cursos/");
 const padresRef = firebase.database().ref("padres/");
 
+let datosPadre = [];
+
 /**
  * Registra un usuario con email y contraseña.
  * TODO: Vincular dni con el usuario
@@ -91,6 +93,7 @@ async function esUsuarioValido(usuario) {
   const pathname = window.location.pathname;
   const filename = pathname.slice(pathname.lastIndexOf("/") + 1);
 
+  // El usuario no esta logeado
   if (usuario === null) {
     if (filename !== "login.html" && filename !== "registro.html") {
       window.location = "login.html";
@@ -100,13 +103,18 @@ async function esUsuarioValido(usuario) {
   const infoPadreSnap = await padresRef.child(usuario.uid).get();
   const infoPadre = await infoPadreSnap.val();
 
+  // No hay alumnos vinculados
   if (infoPadre === null && filename !== "vincular.html") {
     window.location = "vincular.html";
   }
 
+  // Hay alumnos vinculados y una sesion activa.
   if (infoPadre !== null) {
     if (filename === "login.html" || filename === "registro.html") {
       window.location = "index.html";
+    }
+    else {
+      datosPadre = await obtenerInfoPadre(usuario.uid);
     }
   }
 }
@@ -145,6 +153,24 @@ async function vincularAlumno(usuario, cursoAlumno, dniAlumno) {
   } else alert('No se encuentra al alumno en ese curso.');
 
 }
+
+/**
+ * Obtiene los datos de los usuarios vinculados a los padres
+ * @param {string} padreUID UID del usuario
+ * @returns {Object[]}
+ */
+function obtenerInfoPadre (padreUID) {
+  let arr = [];
+
+  padresRef.child(padreUID).once("value", (alumnosVinculados) => {
+    alumnosVinculados.forEach((snap) => {
+      arr.push({alumno: snap.key, ...snap.val()});
+    })
+  });
+
+  return arr;
+}
+
 
 /**
  * Inicializa la applicación
