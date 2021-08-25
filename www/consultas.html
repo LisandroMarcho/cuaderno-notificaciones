@@ -57,14 +57,11 @@
                 <a>
                     <i class='bx bx-user'></i>
                     <span class="links_name">
-                        <select>
-                        <option>
-                        aaaa
-                        </option>
-                    </select>
+                        <select id="selectorAlumnos" class="init-disabled" disabled="disabled" onchange="cambiarAlumno(this)">
+                            <option value="nuevoVinculo">AÑADIR ALUMNO</option>
+                        </select>
                     </span>
                 </a>
-                    <span class="tooltip"></span>   
             </li>
             <li class="profile">
                 <a href="javascript:firebase.auth().signOut();">Cerrar sesion</a>
