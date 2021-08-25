@@ -116,18 +116,24 @@
   padding: 0 20px 0 50px;
   width: 100%;
 }
+.sidebar.open select{
+  outline: none;
+  display: flex;
+  height: 50px;
+  width: 170px;
+  background: #11101D;
+  border: none; 
+  color: #fff;
+  transition: all 0.4s ease;
+} 
 .sidebar li a{
+  color: #fff;
   display: flex;
   height: 100%;
   width: 100%;
-  border-radius: 12px;
   align-items: center;
   text-decoration: none;
   transition: all 0.4s ease;
-  background: #11101D;
-}
-.sidebar li a:hover{
-  background: #FFF;
 }
 .sidebar li a .links_name{
   color: #fff;
@@ -141,11 +147,6 @@
 .sidebar.open li a .links_name{
   opacity: 1;
   pointer-events: auto;
-}
-.sidebar li a:hover .links_name,
-.sidebar li a:hover i{
-  transition: all 0.5s ease;
-  color: #11101D;
 }
 .sidebar li i{
   height: 50px;
