@@ -5,6 +5,8 @@ const cursosRef = firebase.database().ref("cursos/");
 const padresRef = firebase.database().ref("padres/");
 
 let datosPadre = [];
+let horarios = [];
+let avisos = [];
 
 /**
  * Registra un usuario con email y contraseña.
@@ -113,9 +115,7 @@ async function esUsuarioValido(usuario) {
     if (filename === "login.html" || filename === "registro.html") {
       window.location = "index.html";
     }
-    else {
-      datosPadre = await obtenerInfoPadre(usuario.uid);
-    }
+    // else datosPadre = await obtenerInfoPadre(usuario.uid);
   }
 }
 
@@ -159,18 +159,33 @@ async function vincularAlumno(usuario, cursoAlumno, dniAlumno) {
  * @param {string} padreUID UID del usuario
  * @returns {Object[]}
  */
-function obtenerInfoPadre (padreUID) {
+function obtenerDatosPadre (padreUID) {
   let arr = [];
 
   padresRef.child(padreUID).once("value", (alumnosVinculados) => {
     alumnosVinculados.forEach((snap) => {
       arr.push({alumno: snap.key, ...snap.val()});
-    })
+    });
   });
 
   return arr;
 }
 
+async function obtenerDatosAlumno (keyCurso, keyAlumno) {
+  const alumnoSnap = await cursosRef.child(keyCurso).child('alumnos').child(keyAlumno).get();
+  const alumnoVal  = await alumnoSnap.val();
+  return {...alumnoVal, curso: keyCurso};
+}
+
+async function obtenerHorarios (keyCurso) {
+  const horariosSnap = await cursosRef.child(keyCurso).child('horarios').get();
+  return horariosSnap;
+}
+
+async function obtenerAvisos (keyCurso) {
+  const avisosSnap = await cursosRef.child(keyCurso).child('avisos').get();
+  return avisosSnap;  
+}
 
 /**
  * Inicializa la applicación
