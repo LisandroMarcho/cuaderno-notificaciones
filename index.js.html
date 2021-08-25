@@ -68,7 +68,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#actualizarBtnSidenav">actualizarBtnSidenav</a></li><li><a href="global.html#cerrarSesion">cerrarSesion</a></li><li><a href="global.html#esUsuarioValido">esUsuarioValido</a></li><li><a href="global.html#iniciarSesion">iniciarSesion</a></li><li><a href="global.html#initializeApp">initializeApp</a></li><li><a href="global.html#obtenerCursos">obtenerCursos</a></li><li><a href="global.html#obtenerInfoPadre">obtenerInfoPadre</a></li><li><a href="global.html#registrarAlumno">registrarAlumno</a></li><li><a href="global.html#toggleSidenav">toggleSidenav</a></li><li><a href="global.html#vincularAlumno">vincularAlumno</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Global</h3><ul><li><a href="global.html#actualizarBtnSidenav">actualizarBtnSidenav</a></li><li><a href="global.html#cerrarSesion">cerrarSesion</a></li><li><a href="global.html#esUsuarioValido">esUsuarioValido</a></li><li><a href="global.html#iniciarSesion">iniciarSesion</a></li><li><a href="global.html#initializeApp">initializeApp</a></li><li><a href="global.html#obtenerCursos">obtenerCursos</a></li><li><a href="global.html#obtenerDatosPadre">obtenerDatosPadre</a></li><li><a href="global.html#registrarAlumno">registrarAlumno</a></li><li><a href="global.html#toggleSidenav">toggleSidenav</a></li><li><a href="global.html#vincularAlumno">vincularAlumno</a></li></ul></div>
                 
             </nav>
         </div>
@@ -92,6 +92,8 @@ const cursosRef = firebase.database().ref("cursos/");
 const padresRef = firebase.database().ref("padres/");
 
 let datosPadre = [];
+let horarios = [];
+let avisos = [];
 
 /**
  * Registra un usuario con email y contraseña.
@@ -200,9 +202,7 @@ async function esUsuarioValido(usuario) {
     if (filename === "login.html" || filename === "registro.html") {
       window.location = "index.html";
     }
-    else {
-      datosPadre = await obtenerInfoPadre(usuario.uid);
-    }
+    // else datosPadre = await obtenerInfoPadre(usuario.uid);
   }
 }
 
@@ -246,18 +246,33 @@ async function vincularAlumno(usuario, cursoAlumno, dniAlumno) {
  * @param {string} padreUID UID del usuario
  * @returns {Object[]}
  */
-function obtenerInfoPadre (padreUID) {
+function obtenerDatosPadre (padreUID) {
   let arr = [];
 
   padresRef.child(padreUID).once("value", (alumnosVinculados) => {
     alumnosVinculados.forEach((snap) => {
       arr.push({alumno: snap.key, ...snap.val()});
-    })
+    });
   });
 
   return arr;
 }
 
+async function obtenerDatosAlumno (keyCurso, keyAlumno) {
+  const alumnoSnap = await cursosRef.child(keyCurso).child('alumnos').child(keyAlumno).get();
+  const alumnoVal  = await alumnoSnap.val();
+  return {...alumnoVal, curso: keyCurso};
+}
+
+async function obtenerHorarios (keyCurso) {
+  const horariosSnap = await cursosRef.child(keyCurso).child('horarios').get();
+  return horariosSnap;
+}
+
+async function obtenerAvisos (keyCurso) {
+  const avisosSnap = await cursosRef.child(keyCurso).child('avisos').get();
+  return avisosSnap;  
+}
 
 /**
  * Inicializa la applicación
