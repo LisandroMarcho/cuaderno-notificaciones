@@ -46,6 +46,7 @@
     <script>
         window.onload = () => {
             initializeApp();
+            localStorage.removeItem('alumno-actual');
 
             document.getElementById('formulario').onsubmit = (e) => {
                 e.preventDefault();
