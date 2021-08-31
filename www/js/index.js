@@ -5,7 +5,7 @@ const cursosRef = firebase.database().ref("cursos/");
 const padresRef = firebase.database().ref("padres/");
 
 let alumnoActual = null;
-let datosPadre = [];
+let alumnosVinculados = [];
 let horarios = [];
 let avisos = [];
 
@@ -87,38 +87,45 @@ function cerrarSesion() {
 }
 
 /**
- * Verifica si el cliente tiene una sesión iniciada
+ * Verifica si el cliente tiene una sesión iniciada. También carga los alumnos vinculados en memoria.
  * @param {Object} usuario
  */
 async function esUsuarioValido(usuario) {
-  const pathname = window.location.pathname;
-  const filename = pathname.slice(pathname.lastIndexOf("/") + 1);
+  const windowPath = window.location.pathname;
+  const actualFile = windowPath.slice(windowPath.lastIndexOf("/") + 1);
 
   // El usuario no esta logeado
   if (usuario === null) {
-    if (filename !== "login.html" && filename !== "registro.html") {
+    if (actualFile !== "login.html" && actualFile !== "registro.html") {
       window.location = "login.html";
     }
   }
 
-  const infoPadreSnap = await padresRef.child(usuario.uid).get();
-  const infoPadre = await infoPadreSnap.val();
+
+  await padresRef.child(usuario.uid).once("value", (alumnosSnap) => {
+    const nuevoAlumnoOption = '<option value="nuevoVinculo">AÑADIR ALUMNO</option>';
+    if(selectAlumnos) selectAlumnos.innerHTML = '';
+
+    alumnosSnap.forEach((snap) => {
+      alumnosVinculados.push({dni: snap.key, ...snap.val()});
+      
+      if(selectAlumnos) selectorAlumnos.innerHTML += `<option data-curso="${snap.child('curso').val()}" value="${snap.key}" ${alumnoActual.dni == snap.key && 'selected="selected"' }}>${snap.key}</option>`;
+      if(!localStorage.getItem('alumno-actual')) localStorage.setItem('alumno-actual', JSON.stringify(alumnosVinculados[0]));
+    });
+
+    if(selectAlumnos) selectAlumnos.innerHTML += nuevoAlumnoOption;
+  });
 
   // No hay alumnos vinculados
-  if (infoPadre === null && filename !== "vincular.html") {
+  if (alumnosVinculados.length === 0 && actualFile !== "vincular.html") {
     window.location = "vincular.html";
   }
 
   // Hay alumnos vinculados y una sesion activa.
-  if (infoPadre !== null) {
-    if (filename === "login.html" || filename === "registro.html") {
+  if (alumnosVinculados.length > 0) {
+    if (actualFile === "login.html" || actualFile === "registro.html") {
       window.location = "index.html";
     }
-    
-    /* A PARTIR DE ACA LLAMAR A LOS cargar...() */
-    cargarAlumnoActual();
-    datosPadre = obtenerDatosPadre(usuario.uid);
-
   }
 }
 
@@ -141,6 +148,7 @@ async function obtenerCursos() {
 
 /**
  * Vincula un padre con un alumno.
+ * TODO: Agregar vinculo del alumno con el padre
  * @param {Object} usuario Usuario actual
  * @param {string} cursoAlumno ID del curso actual
  * @param {string} dniAlumno DNI del alumno a vincular
@@ -151,32 +159,9 @@ async function vincularAlumno(usuario, cursoAlumno, dniAlumno) {
   
   if(alumnoVal !== null) {
     await padresRef.child(usuario.uid).child(dniAlumno).update({ curso: cursoAlumno });
-    await cursosRef.child(cursoAlumno).child('alumnos').child(dniAlumno).child('padres').child({ padre: firebase.auth().currentUser.uid }).set(true);
+    // await cursosRef.child(cursoAlumno).child('alumnos').child(dniAlumno).child('padres').child({ padre: firebase.auth().currentUser.uid }).set(true);
     if(!confirm('Alumno vinculado exitosamente. \n¿Desea vincular otro alumno?')) window.location = 'index.html';
   } else alert('No se encuentra al alumno en ese curso.');
-
-}
-
-/**
- * Obtiene los datos de los usuarios vinculados a los padres
- * @param {string} padreUID UID del usuario
- * @returns {Object[]}
- */
-function obtenerDatosPadre (padreUID) {
-  let arr = [];
-  const nuevoAlumnoOption = '<option value="nuevoVinculo">AÑADIR ALUMNO</option>';
-
-  padresRef.child(padreUID).once("value", (alumnosVinculados) => {
-    selectAlumnos.innerHTML = '';
-    alumnosVinculados.forEach((snap) => {
-      arr.push({dni: snap.key, ...snap.val()});
-      selectorAlumnos.innerHTML += `<option data-curso="${snap.child('curso').val()}" value="${snap.key}" ${alumnoActual.dni == snap.key && 'selected="selected"' }}>${snap.key}</option>`;
-      if(!localStorage.getItem('alumno-actual')) localStorage.setItem('alumno-actual', JSON.stringify(arr[0]));
-    });
-    selectAlumnos.innerHTML += nuevoAlumnoOption;
-  });
-
-  return arr;
 }
 
 /**
@@ -206,16 +191,16 @@ async function obtenerHorarios (keyCurso) {
  * @param {string} keyCurso Identificador del curso
  * @returns {DataSnapshot}
  */
-async function obtenerAvisos (keyCurso) {
-  const avisosSnap = await cursosRef.child(keyCurso).child('avisos').get();
-  return avisosSnap;  
+async function obtenerAvisos (keyCurso = null) {
+  const avisosSnap = await cursosRef.child(keyCurso || alumnoActual.curso).child('avisos').get();
+  return avisosSnap;
 }
 
 /**
  * Actualiza `alumno-actual` en `localStorage`.
  * @param {HTMLSelectElement} select Selector de cambio de alumno
  */
-async function cambiarAlumno(select) {
+function cambiarAlumno(select) {
   const alumno = {
     dni: select.value,
     curso: select.options[select.options.selectedIndex].dataset.curso
@@ -240,16 +225,23 @@ function cargarAlumnoActual() {
 
 /**
  * Inicializa la applicación
+ * @param {Function} callback Se ejecuta después de inicializar lo básico.
  */
-function initializeApp() {
-  firebase.auth().onAuthStateChanged(esUsuarioValido);
-  closeBtn && closeBtn.addEventListener("click", toggleSidenav);
+function initializeApp(callback = () => {}) {
+  cargarAlumnoActual();
 
-  const initiallyDisabledElements = document.querySelectorAll(".init-disabled");
-  initiallyDisabledElements.forEach((element) => {
-    element.classList.remove("init-disabled");
-    element.disabled = false;
-  });
+  window.onload = () => {
+    firebase.auth().onAuthStateChanged(esUsuarioValido);
+
+    closeBtn && closeBtn.addEventListener("click", toggleSidenav);
+    const initiallyDisabledElements = document.querySelectorAll(".init-disabled");
+    initiallyDisabledElements.forEach((element) => {
+      element.classList.remove("init-disabled");
+      element.disabled = false;
+    });
+  
+    callback();
+  }
 }
 
 /**

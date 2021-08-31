@@ -72,28 +72,24 @@
         <div class="text">Avisos</div>
         <main>
             <section class="avisos">
-                <section class="aviso">
-                    <section class="aviso__header">
-                        <section class="aviso__persona">
-                            <h3>Soledad Casas</h3>
-                            <h6>Preceptora</h6>
-                        </section>
-                    </section>
-                    <h5>Alumnos mañana miercoles 26 de agosto falta el profesor Formica.</h5>
-                </section>
-                <section class="aviso">
-                    <h3>Carlos Covini</h3>
-                    <h6>Vicedirector</h6><br>
-                    <h5>Alumnos el 29 de septiembre tendremos la exposicion de Calidad educativa.</h5>
-                </section>
             </section>
         </main>
         <script src="js/index.js"></script>
         <script>
-            window.onload = async () => {
-                initializeApp();
-                const avisosSnap = obtenerAvisos(alumnoActual.curso);
-            }
+            initializeApp(async ()=>{
+                const avisosContainer = document.querySelector(".avisos");
+                const avisosSnap = await obtenerAvisos();
+                avisosSnap.forEach(aviso => {
+                    avisosContainer.innerHTML += `
+                    <section class="aviso">
+                        <h3>${aviso.child('titulo').val()}</h3>
+                        <h6>${aviso.child('preceptor').val()} - ${aviso.child('fecha').val()}</h6>
+                        <br>
+                        <h5>${aviso.child('descripcion').val()}</h5>
+                    </section>
+                    `;
+                });
+            });
         </script>
 </body>
 

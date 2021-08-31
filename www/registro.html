@@ -6,7 +6,12 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/login.css" />
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <script src="js/firebase-app.js"></script>
+    <script src="js/firebase-auth.js"></script>
+    <script src="js/firebase-database.js"></script>
+    <script src="js/config.js"></script>
     <title>Registro</title>
 </head>
 
@@ -38,29 +43,25 @@
             </form>
         </div>
     </div>
-    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>
-    <script src="js/config.js"></script>
     <script src="js/index.js"></script>
     <script>
-        window.onload = () => {
-            initializeApp();
+        initializeApp(() => {
             localStorage.removeItem('alumno-actual');
 
             document.getElementById('formulario').onsubmit = (e) => {
                 e.preventDefault();
-                
+
                 if (!comprobarClave()) {
                     alert('Las contraseñas no coinciden');
                 }
-                
+
                 const email = document.getElementById('email');
                 const clave1 = document.getElementById('clave1');
-                
+
                 registrarAlumno(email.value, clave1.value);
             };
-        }
+
+        });
 
         function comprobarClave() {
             clave1 = document.f1.clave1.value;
