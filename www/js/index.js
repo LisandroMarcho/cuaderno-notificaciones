@@ -1,6 +1,6 @@
 const sidebar = document.querySelector(".sidebar");
 const closeBtn = document.querySelector("#btn");
-
+const selectAlumnos = document.querySelector("#selectorAlumnos");
 const cursosRef = firebase.database().ref("cursos/");
 const padresRef = firebase.database().ref("padres/");
 
@@ -12,10 +12,8 @@ let avisos = [];
 /**
  * Registra un usuario con email y contraseña.
  * TODO: Vincular dni con el usuario
- * @param {Object} credentials            Objeto con las credenciales
- * @param {String} credentials.email      Correo electronico del usuario
- * @param {Number} credentials.dni        DNI del usuario
- * @param {String} credentials.password   Contraseña del usuario
+ * @param {String} email      Correo electronico del usuario
+ * @param {String} password   Contraseña del usuario
  * @example
  * const credenciales = {
  *  email: 'mail@example.com',
@@ -23,7 +21,7 @@ let avisos = [];
  * };
  *
  * const result = await registrarAlumno(credenciales);
- * @returns {Object} User or error
+ * @returns {Promise<Object>} User or error
  */
 async function registrarAlumno(email, password) {
   try {
@@ -116,7 +114,11 @@ async function esUsuarioValido(usuario) {
     if (filename === "login.html" || filename === "registro.html") {
       window.location = "index.html";
     }
-    // else datosPadre = await obtenerInfoPadre(usuario.uid);
+    
+    /* A PARTIR DE ACA LLAMAR A LOS cargar...() */
+    cargarAlumnoActual();
+    datosPadre = obtenerDatosPadre(usuario.uid);
+
   }
 }
 
@@ -161,14 +163,17 @@ async function vincularAlumno(usuario, cursoAlumno, dniAlumno) {
  * @returns {Object[]}
  */
 function obtenerDatosPadre (padreUID) {
-  const selectorAlumnos = document.getElementById('selectorAlumnos');
   let arr = [];
+  const nuevoAlumnoOption = '<option value="nuevoVinculo">AÑADIR ALUMNO</option>';
 
   padresRef.child(padreUID).once("value", (alumnosVinculados) => {
+    selectAlumnos.innerHTML = '';
     alumnosVinculados.forEach((snap) => {
-      arr.push({alumno: snap.key, ...snap.val()});
-      selectorAlumnos.innerHTML += `<option data-curso="${snap.child('curso').val()}" value="${snap.key}">${snap.key}</option>`;
+      arr.push({dni: snap.key, ...snap.val()});
+      selectorAlumnos.innerHTML += `<option data-curso="${snap.child('curso').val()}" value="${snap.key}" ${alumnoActual.dni == snap.key && 'selected="selected"' }}>${snap.key}</option>`;
+      if(!localStorage.getItem('alumno-actual')) localStorage.setItem('alumno-actual', JSON.stringify(arr[0]));
     });
+    selectAlumnos.innerHTML += nuevoAlumnoOption;
   });
 
   return arr;
@@ -216,15 +221,18 @@ async function cambiarAlumno(select) {
     curso: select.options[select.options.selectedIndex].dataset.curso
   };
 
-  localStorage.setItem('alumno-actual', JSON.stringify(alumno));
-  window.location.reload();
+  if(select.value === "nuevoVinculo") window.location = 'vincular.html';
+  else {
+    localStorage.setItem('alumno-actual', JSON.stringify(alumno));
+    window.location.reload();
+  }
 }
 
 /**
  * Establece la variable global `alumnoActual` con el item almacenado en `alumno-actual`
  * desde `localStorage`.
  */
-async function cargarAlumnoActual() {
+function cargarAlumnoActual() {
   const jsonString = localStorage.getItem('alumno-actual');
   const alumno = JSON.parse(jsonString);
   alumnoActual = { ...alumno };
@@ -235,11 +243,9 @@ async function cargarAlumnoActual() {
  */
 function initializeApp() {
   firebase.auth().onAuthStateChanged(esUsuarioValido);
-
   closeBtn && closeBtn.addEventListener("click", toggleSidenav);
 
   const initiallyDisabledElements = document.querySelectorAll(".init-disabled");
-
   initiallyDisabledElements.forEach((element) => {
     element.classList.remove("init-disabled");
     element.disabled = false;
