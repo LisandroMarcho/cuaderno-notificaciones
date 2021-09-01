@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "153672834962",
+    "firebase_url": "https://cuaderno-comunicaciones-default-rtdb.firebaseio.com",
+    "project_id": "cuaderno-comunicaciones",
+    "storage_bucket": "cuaderno-comunicaciones.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:153672834962:android:85f18afe27ec025e8cab4b",
+        "android_client_info": {
+          "package_name": "ml.marchionni.push"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "153672834962-sk0gjb3p64k0d5su9ivkookgaljbjvaj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxzIy-e6c83HufnfS_ZPhLPvIeZzFpnd8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "153672834962-sk0gjb3p64k0d5su9ivkookgaljbjvaj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
