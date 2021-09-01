@@ -197,6 +197,17 @@ async function obtenerAvisos (keyCurso = null) {
 }
 
 /**
+ * Recupera la lista de notas de un alumno en específico.
+ * @param {string} keyCurso Identificador del curso
+ * @param {string} keyAlumno Identificador del alumno
+ * @returns {DataSnapshot}
+ */
+async function obtenerNotas (keyCurso = null, keyAlumno = null) {
+  const notasSnap = await cursosRef.child(keyCurso || alumnoActual.curso).child('alumnos').child(keyAlumno || alumnoActual.dni).child("notas").get();
+  return notasSnap;
+}
+
+/**
  * Actualiza `alumno-actual` en `localStorage`.
  * @param {HTMLSelectElement} select Selector de cambio de alumno
  */
