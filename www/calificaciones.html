@@ -70,10 +70,11 @@
     <section class="home-section">
         <div class="text"><u>Calificaciones</u></div>
         <main>
-            <br><select class="opcion">
-                <option>1er cuatrimestre</option>
-                <option>2do cuatrimestre</option>
-            </select><br>
+            <br>
+            <select class="opcion" disabled>
+                <option>Cargando...</option>
+            </select>
+            <br>
             <section>
                 <table border="1" class="notas">
                     <tr>
@@ -90,36 +91,7 @@
                         <td><b>Nota:</b></td>
                     </tr>
                     <tr>
-                        <td>Pro Dis e Imp de Sis Com.</td>
-                        <td>TEA</td>
-                    </tr>
-                    <tr>
-                        <td>Emp Pro y Des Loc.</td>
-                        <td>TEA</td>
-                    </tr>
-                    <tr>
-                        <td>Practicas profesionalizantes</td>
-                        <td>TEA</td>
-                    </tr>
-                    <tr>
-                        <td>Evaluacion de proyectos</td>
-                        <td>TEA</td>
-                    </tr>
-                    <tr>
-                        <td>Modelos y Sistemas</td>
-                        <td>TEA</td>
-                    </tr>
-                    <tr>
-                        <td>Ins Man y Rep de redes</td>
-                        <td>TEA</td>
-                    </tr>
-                    <tr>
-                        <td>Base de datos</td>
-                        <td>TEA</td>
-                    </tr>
-                    <tr>
-                        <td>Ins Man y Rep de Sis Com.</td>
-                        <td>TEA</td>
+                        <td colspan="2">Cargando...</td>
                     </tr>
                 </table>
 
@@ -127,7 +99,38 @@
         </main>
         <script src="js/index.js"></script>
         <script>
-            initializeApp();
+            let notasArr = [];
+
+            initializeApp(async () => {
+                const trimestreSnap = await obtenerNotas();
+                const tablaNotas = document.querySelector(".notas");
+                const selectTrimestre = document.querySelector(".opcion");
+
+                if(await trimestreSnap.val() === null) {
+                    tablaNotas.lastChild.innerText = 'No hay datos que mostrar';
+                    return;
+                }
+
+                selectTrimestre.innerHTML = '';
+                await trimestreSnap.forEach(trimestre => {
+                    selectTrimestre.innerHTML += `<option value="${trimestre.key}">${trimestre.key}</option>`;
+                    const indexActual = notasArr.push(tablaNotas.cloneNode(true)) - 1;
+                    notasArr[indexActual].deleteRow(-1);
+                    
+                    trimestre.forEach((nota) => {
+                        notasArr[indexActual].insertRow().innerHTML = `<td>${nota.key}</td><td>${nota.val()}</td>`;
+                    })
+                });
+
+                tablaNotas.replaceWith(notasArr[0]);
+                selectTrimestre.disabled = false;
+
+                selectTrimestre.onchange = () => cambiarTabla(selectTrimestre);
+
+                function cambiarTabla(select) {
+                    document.querySelector(".notas").replaceWith(notasArr[select.selectedIndex]);
+                }   
+            });
         </script>
 </body>
 
