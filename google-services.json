@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:153672834962:android:85f18afe27ec025e8cab4b",
+        "mobilesdk_app_id": "1:153672834962:android:dc8d28ea8e7280a98cab4b",
         "android_client_info": {
-          "package_name": "ml.marchionni.push"
+          "package_name": "ml.marchionni.cuaderno"
         }
       },
       "oauth_client": [
