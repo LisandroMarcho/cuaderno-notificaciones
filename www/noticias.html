@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/index.css">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <script src="js/firebase-app.js"></script>
+    <script src="js/firebase-auth.js"></script>
+    <script src="js/firebase-database.js"></script>
+    <script src="js/config.js"></script>
+    <title>Inicio</title>
+    <style type="text/css">
+        .avisos {
+            padding: 0;
+        }
+
+        .home-section {
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="logo-details">
+            <i class='bx bxs-school icon'></i>
+            <div class="logo_name">Cuaderno Virtual</div>
+            <i class='bx bx-menu' id="btn"></i>
+        </div>
+
+        <ul class="nav-list">
+            <li>
+                <a href="index.html">
+                    <i class='bx bx-home'></i>
+                    <span class="links_name">Inicio</span>
+                </a>
+            </li>
+            <li>
+                <a href="horarios.html">
+                    <i class='bx bx-grid-alt'></i>
+                    <span class="links_name">Horarios</span>
+                </a>
+            </li>
+            <li>
+                <a href="calificaciones.html">
+                    <i class='bx bx-pie-chart-alt-2'></i>
+                    <span class="links_name">Calificaciones</span>
+                </a>
+            </li>
+            <li>
+                <a href="consultas.html">
+                    <i class='bx bx-question-mark'></i>
+                    <span class="links_name">Consultas</span>
+                </a>
+            </li>
+            <li>
+                <a>
+                    <i class='bx bx-user'></i>
+                    <span class="links_name">
+                        <select id="selectorAlumnos" class="init-disabled" disabled="disabled"
+                            onchange="cambiarAlumno(this)">
+                            <option value="nuevoVinculo">AÑADIR ALUMNO</option>
+                        </select>
+                    </span>
+                </a>
+            </li>
+            <li class="profile">
+                <a href="javascript:firebase.auth().signOut();">Cerrar sesion</a>
+                <div class="profile-details">
+                    <img src="img/profile.png" alt="profileImg">
+                </div>
+                <i class='bx bx-log-out' id="log_out"></i>
+            </li>
+        </ul>
+    </div>
+    <main>
+        <section class="home-section">
+            <div class="text"><u>Consultas</u></div>
+        <main>
+            <br><section class="avisos">
+                <section class="consulta">
+                 <h1 align="center" >Preguntas frecuentes</h1><br>
+            <section class="consulta">
+                <details>
+                    <summary>¿Cuáles son los métodos de contacto?</summary>
+                    <b>Teléfono</b>: 433311<br>
+                    <b>Email</b>: tecnicageneralalvarado@gmail.com
+                </details>
+            </section>
+            <section class="consulta">
+                <details>
+                    <summary>¿Cuáles son mis horarios?</summary><b>Podrás ver tus horarios <a href="horarios.html"> aquí</b>
+                </details>
+            </section>
+            </section>
+            </section>
+            </main>
+    <script src="js/index.js"></script>
+    <script>
+        initializeApp(async ()=> {
+            let posts = '';
+            const responseFromInstagram = await fetch('https://www.instagram.com/eestn1miramar', {
+                method: 'GET'
+            });
+        
+            const textFromInstagram = await responseFromInstagram.text();
+            // const dataFromInstagram = await JSON.parse(textFromInstagram);
+            console.log(textFromInstagram);
+
+        });
+    </script>
+</body>
+
+</html>

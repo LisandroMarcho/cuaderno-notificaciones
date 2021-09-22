@@ -71,12 +71,70 @@
     <section class="home-section">
         <div class="text"><u>Horarios</u></div>
         <section>
-
+            <select id="selectHorarios" class="opcion" onchange="cambiarHorario(this)">
+                <option class="dia-1" value="lunes">Lunes</option>
+                <option class="dia-2" value="martes">Martes</option>
+                <option class="dia-3" value="miercoles">Miércoles</option>
+                <option class="dia-4" value="jueves">Jueves</option>
+                <option class="dia-5" value="viernes">Viernes</option>
+            </select>
+            <br>
+            <table border="1" class="notas" style="width: 100%" id="tablaHorario">
+                <tr>
+                    <td style="width: 75px;" colspan="2"><b>Hora</b></td>
+                    <td><b>Materia</b></td>
+                </tr>
+                <tr>
+                    <td style="writing-mode: vertical-rl; width: 15px;" style="width: 15px;" rowspan="4">Mañana</td>
+                    <td style="width: 60px;">7:30<br>8:30</td>
+                    <td class="hora-1"></td>
+                </tr>
+                <tr>
+                    <td>8:40<br>9:40</td>
+                    <td class="hora-2"></td>
+                </tr>
+                <tr>
+                    <td>9:50<br>10:50</td>
+                    <td class="hora-3"></td>
+                </tr>
+                <tr>
+                    <td>11:00<br>12:00</td>
+                    <td class="hora-4"></td>
+                </tr>
+                <tr>
+                    <td style="writing-mode: vertical-rl;" rowspan="4">Tarde</td>
+                    <td>13:15<br>14:10</td>
+                    <td class="hora-5"></td>
+                </tr>
+                <tr>
+                    <td>14:20<br>15:20</td>
+                    <td class="hora-6"></td>
+                </tr>
+                <tr>
+                    <td>15:30<br>16:30</td>
+                    <td class="hora-7"></td>
+                </tr>
+                <tr>
+                    <td>16:40<br>17:40</td>
+                    <td class="hora-8"></td>
+                </tr>
+            </table>
         </section>
     </section>
     <script src="js/index.js"></script>
     <script>
-        initializeApp();
+        initializeApp(async () => {
+            const horariosSnap = await obtenerHorarios();
+            await horariosSnap.forEach(dia => {
+                horarios[dia.key] = dia.toJSON()
+            })
+
+            cambiarHorario();
+            
+            const fecha = new Date();
+            const numDia = fecha.getDay();
+            document.querySelector(`option.dia-${numDia}`).selected = "selected";
+        });
     </script>
 </body>
 

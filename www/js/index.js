@@ -181,9 +181,20 @@ async function obtenerDatosAlumno (keyCurso, keyAlumno) {
  * @param {string} keyCurso Identificador del curso
  * @returns {DataSnapshot}
  */
-async function obtenerHorarios (keyCurso) {
-  const horariosSnap = await cursosRef.child(keyCurso).child('horarios').get();
+async function obtenerHorarios (keyCurso = null) {
+  const horariosSnap = await cursosRef.child(keyCurso || alumnoActual.curso).child('horarios').get();
   return horariosSnap;
+}
+
+function cambiarHorario(select = null) {
+  const fecha = new Date();
+  const numDia = select !== null ? select.selectedIndex : fecha.getDay() - 1;
+  const diasSemana = ["lunes", "martes", "miercoles", "jueves", "viernes"];
+  const dia = diasSemana[numDia];
+
+  for(hora in horarios[dia]) {
+    document.querySelector(`.${hora}`).innerHTML = horarios[dia][hora];
+  }
 }
 
 /**
