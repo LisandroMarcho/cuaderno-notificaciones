@@ -9,9 +9,19 @@ let alumnosVinculados = [];
 let horarios = [];
 let avisos = [];
 
+document.addEventListener("deviceready", onDeviceReady, false);
+
+/**
+ * Cambia el comportamiento del boton "Volver" del dispositivo.
+ */
+function onDeviceReady() {
+  document.addEventListener("backbutton", function (e) {
+      e.preventDefault();
+  }, false );
+}
+
 /**
  * Registra un usuario con email y contraseña.
- * TODO: Vincular dni con el usuario
  * @param {String} email      Correo electronico del usuario
  * @param {String} password   Contraseña del usuario
  * @example
@@ -179,13 +189,17 @@ async function obtenerDatosAlumno (keyCurso, keyAlumno) {
 /**
  * Recupera los horarios de un curso en específico.
  * @param {string} keyCurso Identificador del curso
- * @returns {DataSnapshot}
+ * @returns Snapshot de los horarios
  */
 async function obtenerHorarios (keyCurso = null) {
   const horariosSnap = await cursosRef.child(keyCurso || alumnoActual.curso).child('horarios').get();
   return horariosSnap;
 }
 
+/**
+ * Cambia la tabla de horarios según la opción seleccionada en el select.
+ * @param {HTMLSelectElement} select 
+ */
 function cambiarHorario(select = null) {
   const fecha = new Date();
   const numDia = select !== null ? select.selectedIndex : fecha.getDay() - 1;
@@ -200,7 +214,7 @@ function cambiarHorario(select = null) {
 /**
  * Recupera la lista de avisos de un curso en específico.
  * @param {string} keyCurso Identificador del curso
- * @returns {DataSnapshot}
+ * @returns Snapshot de los avisos
  */
 async function obtenerAvisos (keyCurso = null) {
   const avisosSnap = await cursosRef.child(keyCurso || alumnoActual.curso).child('avisos').get();
@@ -211,7 +225,7 @@ async function obtenerAvisos (keyCurso = null) {
  * Recupera la lista de notas de un alumno en específico.
  * @param {string} keyCurso Identificador del curso
  * @param {string} keyAlumno Identificador del alumno
- * @returns {DataSnapshot}
+ * @returns Snapshot de las notas
  */
 async function obtenerNotas (keyCurso = null, keyAlumno = null) {
   const notasSnap = await cursosRef.child(keyCurso || alumnoActual.curso).child('alumnos').child(keyAlumno || alumnoActual.dni).child("notas").get();
@@ -247,7 +261,7 @@ function cargarAlumnoActual() {
 
 /**
  * Inicializa la applicación
- * @param {Function} callback Se ejecuta después de inicializar lo básico.
+ * @param {Function} callback Se ejecuta después de inicializar lo básico. Por defecto, es una función vacía.
  */
 function initializeApp(callback = () => {}) {
   cargarAlumnoActual();
