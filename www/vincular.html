@@ -12,6 +12,19 @@
     <script src="js/firebase-auth.js"></script>
     <script src="js/firebase-database.js"></script>
     <script src="js/config.js"></script>
+    <style type="text/css"> 
+        .anios {
+            font-size: 18px;
+            background: #E9E9E9;
+            border-color: #E9E9E9;
+            border-radius: 5px;
+            width: 100%;
+            height: 40px;
+            font-family: calibri;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+    </style>
     <title>Registro</title>
 </head>
 
@@ -23,10 +36,11 @@
                 <br>
                 <label for="dni">DNI del alumno:</label>
                 <input type="number" id="dni" placeholder="Ejemplo: 12222222" autofocus required>
+                <label  for="listaCursos" >Seleccione el curso:</label>
 
-                <label for="listaCursos">Seleccione el curso:</label>
+
                 <div class="password">
-                    <select id="listaCursos" required>
+                    <select id="listaCursos" class="anios" required>
                         <option>Cargando...</option>
                     </select>
                 </div>
