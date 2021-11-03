@@ -17,20 +17,29 @@
     "author": "Apache Cordova Team",
     "license": "Apache-2.0",
     "devDependencies": {
-        "better-docs": "^2.3.2",
         "cordova-android": "^9.1.0",
         "cordova-browser": "^6.0.0",
+        "cordova-plugin-background-mode": "^0.7.3",
+        "cordova-plugin-badge": "^0.8.8",
+        "cordova-plugin-device": "^2.0.3",
+        "cordova-plugin-local-notification": "^0.9.0-beta.2",
         "cordova-plugin-whitelist": "^1.3.5",
         "jsdoc": "^3.6.7",
-        "live-server": "^1.2.1"
+        "live-server": "^1.1.0"
     },
     "cordova": {
         "plugins": {
-            "cordova-plugin-whitelist": {}
+            "cordova-plugin-whitelist": {},
+            "cordova-plugin-scheduler": {},
+            "cordova-plugin-local-notification": {},
+            "cordova-plugin-background-mode": {}
         },
         "platforms": [
             "browser",
             "android"
         ]
+    },
+    "dependencies": {
+        "cordova-plugin-scheduler": "1.1.0"
     }
 }
