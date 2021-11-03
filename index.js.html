@@ -103,8 +103,19 @@ document.addEventListener("deviceready", onDeviceReady, false);
  */
 function onDeviceReady() {
   document.addEventListener("backbutton", function (e) {
-      e.preventDefault();
+    e.preventDefault();
   }, false );
+
+  cordova.plugins.backgroundMode.setEnabled(true);
+
+  setInterval(() => {
+    cordova.plugins.notification.local.schedule({
+      title: 'Aviso nuevo',
+      text: '¡Hay un nuevo aviso!',
+      // foreground: true,
+      vibrate: true
+    });  
+  }, 30 * 1000);
 }
 
 /**
@@ -384,7 +395,27 @@ function actualizarBtnSidenav() {
   } else {
     closeBtn.classList.replace("bx-menu-alt-right", "bx-menu"); //replacing the iocns class
   }
-}</code></pre>
+}
+
+/**
+ * Enviar token al servidor
+ */
+// function sendTokenToServer() {
+//   // Get registration token. Initially this makes a network call, once retrieved
+//   // subsequent calls to getToken will return from cache.
+//   messaging.getToken({ vapidKey }).then((currentToken) => {
+//     if (currentToken) {
+//       console.log(currentToken);
+//     } else {
+//       // Show permission request UI
+//       console.log('No registration token available. Request permission to generate one.');
+//       // ...
+//     }
+//   }).catch((err) => {
+//     console.log('An error occurred while retrieving token. ', err);
+//     // ...
+//   });
+// }</code></pre>
         </article>
     </section>
 
