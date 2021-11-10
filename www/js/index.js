@@ -19,16 +19,20 @@ function onDeviceReady() {
     e.preventDefault();
   }, false );
 
-  cordova.plugins.backgroundMode.setEnabled(true);
+  // cordova.plugins.backgroundMode.setEnabled(true);
 
-  setInterval(() => {
-    cordova.plugins.notification.local.schedule({
-      title: 'Aviso nuevo',
-      text: '¡Hay un nuevo aviso!',
-      // foreground: true,
-      vibrate: true
-    });  
-  }, 30 * 1000);
+  cordova.plugins.notification.local.schedule({
+    id: 10,
+    title: "Recuerda revisar los avisos",
+    text: "Puede que haya novedades que leer",
+    foreground: true,
+    trigger: {
+      every: {
+        hour: 11
+      },
+      count: 1  
+    }
+  });
 }
 
 /**
